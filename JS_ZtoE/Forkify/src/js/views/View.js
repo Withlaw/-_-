@@ -4,7 +4,7 @@ export default class View {
   _data;
 
   render(data, render = true) {
-    // console.log('data: ', data);
+    // console.log("data: ", data);
     if (!data || (Array.isArray(data) && !data.length))
       return this.renderError();
 
@@ -39,6 +39,21 @@ export default class View {
         <div>
           <svg>
             <use href="${icons}#icon-alert-triangle"></use>
+          </svg>
+        </div>
+        <p>${message}</p>
+      </div>
+    `;
+    this._clear();
+    this._parentElement.insertAdjacentHTML("afterbegin", markup);
+  }
+
+  renderMessage(message = this._message) {
+    const markup = `
+      <div class="message">
+        <div>
+          <svg>
+            <use href="${icons}#icon-smile"></use>
           </svg>
         </div>
         <p>${message}</p>

@@ -1,6 +1,6 @@
 import { async } from "regenerator-runtime";
-import { API_URL, RES_PER_PAGE } from "./constants";
-import { getJSON } from "./helpers";
+import { API_URL, RES_PER_PAGE, API_KEY } from "./constants";
+import { getJSON, sendJSON } from "./helpers";
 
 export const state = {
   recipe: {},
@@ -13,23 +13,27 @@ export const state = {
   bookmarks: [],
 };
 
+const createRecipeObj = data => {
+  let { recipe } = data;
+  return {
+    id: recipe.id,
+    title: recipe.title,
+    publisher: recipe.publisher,
+    sourceUrl: recipe.source_url,
+    image: recipe.image_url,
+    servings: recipe.servings,
+    cookingTime: recipe.cooking_time,
+    ingredients: recipe.ingredients,
+    isBookmarked: false,
+    ...(recipe.key && { key: recipe.key }), // very nice trick
+  };
+};
+
 export const loadRecipe = async function (id) {
   try {
     const { data } = await getJSON(`${API_URL}/${id}`);
 
-    let { recipe } = data;
-    state.recipe = {
-      id: recipe.id,
-      title: recipe.title,
-      publisher: recipe.publisher,
-      sourceUrl: recipe.source_url,
-      image: recipe.image_url,
-      servings: recipe.servings,
-      cookingTime: recipe.cooking_time,
-      ingredients: recipe.ingredients,
-
-      isBookmarked: false,
-    };
+    state.recipe = createRecipeObj(data);
     if (state.bookmarks.some(el => el.id === id))
       state.recipe.isBookmarked = true;
 
@@ -94,7 +98,8 @@ export const bookmarking = recipe => {
   }
 };
 
-export const loadStorage = () => {
+// 새로고침하면 북마크 리스트에서 클릭한 요소 배경색 변경이 계속 유지되는 문제 있음
+export const getBookmarksFromStorage = () => {
   const item = window.localStorage.getItem("bookmarks");
   if (item === null || item?.length === 2) return;
 
@@ -106,18 +111,41 @@ export const loadStorage = () => {
   return true;
 };
 
-// const init = () => {
-//   const item = window.localStorage.getItem('bookmarks');
-//   if (item === null || item?.length === 2) return;
+export const uploadRecipe = async newRecipe => {
+  try {
+    const ingredients = Object.entries(newRecipe)
+      .filter(el => el[0].startsWith("ingredient") && el[1] !== "")
+      .map(el => {
+        const ingredientArr = el[1].replaceAll(" ", "").split(",");
+        if (ingredientArr.length !== 3)
+          throw new Error("Wrong ingredient format!");
+        const [quantity, unit, description] = ingredientArr;
 
-//   state.bookmarks = JSON.parse(item);
-// }
-// init()
+        return {
+          quantity: quantity ? +quantity : null,
+          unit,
+          description,
+        };
+      });
+    const recipe = {
+      title: newRecipe.title,
+      source_url: newRecipe.sourceUrl,
+      image_url: newRecipe.image,
+      publisher: newRecipe.publisher,
+      cooking_time: +newRecipe.cookingTime,
+      servings: +newRecipe.servings,
+      ingredients,
+    };
 
-// const uploadRecipe = async () => {
-//   try {
+    const { data } = await sendJSON(`${API_URL}?key=${API_KEY}`, recipe);
+    state.recipe = createRecipeObj(data);
+    bookmarking(state.recipe);
+  } catch (error) {
+    throw error;
+  }
+};
 
-//   } catch (error) {
-
-//   }
-// }
+const init = () => {
+  getBookmarksFromStorage();
+};
+init();

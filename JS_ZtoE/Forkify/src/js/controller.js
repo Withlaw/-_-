@@ -29,6 +29,7 @@ const controlRecipes = async function () {
     resultsView.update(model.getSearchResultsPage());
     bookmarkListView.update(model.state.bookmarks);
     // bookmarkListView.render(model.state.bookmarks);
+
     // 1) Loading recipe
     await model.loadRecipe(id);
     // const { recipe } = await model.loadRecipe(id);
@@ -87,8 +88,18 @@ const controlBookmarkList = () => {
   bookmarkListView.render(model.state.bookmarks);
 };
 
-const controlAddRecipe = newRecipe => {
-  console.log(newRecipe);
+const controlAddRecipe = async newRecipe => {
+  try {
+    await model.uploadRecipe(newRecipe);
+    recipeView.render(model.state.recipe);
+    bookmarkListView.render(model.state.bookmarks);
+    // addRecipeView.renderMessage(); // 성공 확인 모달 구현하기
+    setTimeout(() => {
+      addRecipeView.toggleWindow();
+    }, 0.5 * 1000); //constants 사용할 것
+  } catch (error) {
+    addRecipeView.renderError(error.message);
+  }
 };
 
 const init = function () {
