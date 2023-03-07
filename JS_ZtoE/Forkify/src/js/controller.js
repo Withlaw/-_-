@@ -90,10 +90,11 @@ const controlBookmarkList = () => {
 
 const controlAddRecipe = async newRecipe => {
   try {
+    addRecipeView.renderSpinner();
     await model.uploadRecipe(newRecipe);
     recipeView.render(model.state.recipe);
     bookmarkListView.render(model.state.bookmarks);
-    // addRecipeView.renderMessage(); // 성공 확인 모달 구현하기
+    addRecipeView.renderMessage(); // 성공 확인 모달 구현하기
     setTimeout(() => {
       addRecipeView.toggleWindow();
     }, 0.5 * 1000); //constants 사용할 것
