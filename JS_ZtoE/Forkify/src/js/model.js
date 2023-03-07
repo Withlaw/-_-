@@ -86,6 +86,7 @@ export const bookmarking = recipe => {
     state.recipe.isBookmarked = false;
     window.localStorage.setItem("bookmarks", JSON.stringify(state.bookmarks));
   } else {
+    // add bookmark
     state.bookmarks.push(recipe);
     // if (recipe.id === state.recipe.id) state.recipe.isBookmarked = true;
     state.recipe.isBookmarked = true;

@@ -3,13 +3,14 @@ import icons from "url:../../img/icons.svg";
 export default class View {
   _data;
 
-  render(data) {
+  render(data, render = true) {
     // console.log('data: ', data);
     if (!data || (Array.isArray(data) && !data.length))
       return this.renderError();
 
     this._data = data;
     const markup = this._generateMarkup();
+    if (!render) return markup;
 
     this._clear();
     this._parentElement.insertAdjacentHTML("afterbegin", markup);
@@ -67,6 +68,7 @@ export default class View {
         !newEl.isEqualNode(curEl) &&
         newEl.firstChild?.nodeValue.trim() !== ""
       ) {
+        // nodeValue 문서를 보면 노드들 가운데에 text노드의 컨텐트만 반환하고 나머지 다른 노드는 null을 반환한다.
         curEl.textContent = newEl.textContent;
       }
 
@@ -76,6 +78,15 @@ export default class View {
           curEl.setAttribute(attr.name, attr.value);
         });
       }
+
+      /*
+      // 리팩토링
+      if(newEl.isEqualNode(curEl) continue; // guard clause
+      if(newEl.firstChild?.nodeValue.trim() !== "") curEl.textContent = newEl.textContent;
+      Array.from(newEl.attributes).forEach(attr => {
+          curEl.setAttribute(attr.name, attr.value);
+        });
+      */
     });
   }
 }
