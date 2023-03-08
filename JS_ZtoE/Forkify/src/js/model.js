@@ -48,13 +48,14 @@ export const loadRecipe = async function (id) {
 export const loadSearchResults = async function (query) {
   try {
     state.search.query = query;
-    const { data } = await getJSON(`${API_URL}?search=${query}`);
+    const { data } = await getJSON(`${API_URL}?search=${query}&key=${API_KEY}`);
     state.search.results = data.recipes.map(el => {
       return {
         id: el.id,
         title: el.title,
         publisher: el.publisher,
         image: el.image_url,
+        ...(el.key && { key: el.key }),
       };
     });
     state.search.page = 1;
@@ -116,7 +117,8 @@ export const uploadRecipe = async newRecipe => {
     const ingredients = Object.entries(newRecipe)
       .filter(el => el[0].startsWith("ingredient") && el[1] !== "")
       .map(el => {
-        const ingredientArr = el[1].replaceAll(" ", "").split(",");
+        // const ingredientArr = el[1].replaceAll(" ", "").split(",");
+        const ingredientArr = el[1].split(",").map(el => el.trim());
         if (ingredientArr.length !== 3)
           throw new Error("Wrong ingredient format!");
         const [quantity, unit, description] = ingredientArr;

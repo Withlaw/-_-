@@ -97,6 +97,7 @@ const controlAddRecipe = async newRecipe => {
     addRecipeView.renderMessage(); // 성공 확인 모달 구현하기
     setTimeout(() => {
       addRecipeView.toggleWindow();
+      window.history.pushState(null, "", `#${model.state.recipe.id}`);
     }, 0.5 * 1000); //constants 사용할 것
   } catch (error) {
     addRecipeView.renderError(error.message);
