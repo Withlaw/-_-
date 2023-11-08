@@ -9,9 +9,12 @@ function NavItems() {
   return (
     <ul className={classes.links}>
       {navList.map(el => (
-        <NavItem key={el} isHovered={isHovered} setIsHovered={setIsHovered}>
-          {el}
-        </NavItem>
+        <NavItem
+          key={el}
+          textContext={el}
+          isHovered={isHovered}
+          setIsHovered={setIsHovered}
+        />
       ))}
     </ul>
   );

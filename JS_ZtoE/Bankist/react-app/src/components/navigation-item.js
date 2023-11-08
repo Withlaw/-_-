@@ -1,14 +1,14 @@
 import { useState } from "react";
 import classes from "./navigation-item.module.css";
 
-function NavItem({ children, isHovered, setIsHovered }) {
+function NavItem({ textContext, isHovered, setIsHovered }) {
   const [isTarget, setIsTarget] = useState(false);
   const handleMouseoverToggle = e => {
     setIsHovered(prev => !prev);
     setIsTarget(prev => !prev);
   };
 
-  return (
+  return textContext === "Open account" ? (
     <li
       className={`${classes.item} ${
         isHovered && !isTarget ? classes.hover : ""
@@ -16,13 +16,20 @@ function NavItem({ children, isHovered, setIsHovered }) {
       onMouseOver={handleMouseoverToggle}
       onMouseOut={handleMouseoverToggle}
     >
-      <a
-        className={`${classes.link} ${
-          children === "Open account" ? classes.button : ""
-        }`}
-        href=""
-      >
-        {children}
+      <a className={`${classes.link} ${classes.button}`} href="">
+        Open account
+      </a>
+    </li>
+  ) : (
+    <li
+      className={`${classes.item} ${
+        isHovered && !isTarget ? classes.hover : ""
+      }`}
+      onMouseOver={handleMouseoverToggle}
+      onMouseOut={handleMouseoverToggle}
+    >
+      <a className={classes.link} href="">
+        {textContext}
       </a>
     </li>
   );
