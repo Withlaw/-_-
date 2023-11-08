@@ -1,0 +1,38 @@
+import iconMonitor from "../icons.svg#icon-monitor";
+
+function MonitorSVG() {
+  return (
+    // <svg
+    //   aria-hidden="true"
+    //   position="absolute"
+    //   width="0"
+    //   height="0"
+    //   overflow="hidden"
+    //   version="1.1"
+    //   xmlns="http://www.w3.org/2000/svg"
+    //   xmlnsxlink="http://www.w3.org/1999/xlink"
+    //   viewBox="0 0 24 24"
+    // >
+    //   <path d="M20 2h-16c-1.7 0-3 1.3-3 3v10c0 1.7 1.3 3 3 3h7v2h-3c-0.6 0-1 0.4-1 1s0.4 1 1 1h8c0.6 0 1-0.4 1-1s-0.4-1-1-1h-3v-2h7c1.7 0 3-1.3 3-3v-10c0-1.7-1.3-3-3-3zM21 15c0 0.6-0.4 1-1 1h-16c-0.6 0-1-0.4-1-1v-10c0-0.6 0.4-1 1-1h16c0.6 0 1 0.4 1 1v10z"></path>
+    // </svg>
+    // <svg
+    //   aria-hidden="true"
+    //   style="position: absolute; width: 0; height: 0; overflow: hidden;"
+    //   version="1.1"
+    //   xmlns="http://www.w3.org/2000/svg"
+    //   xmlnsxlink="http://www.w3.org/1999/xlink"
+    // >
+    //   <defs>
+    //     <symbol id="icon-monitor" viewBox="0 0 24 24">
+    //       <title>monitor</title>
+    //       <path d="M20 2h-16c-1.7 0-3 1.3-3 3v10c0 1.7 1.3 3 3 3h7v2h-3c-0.6 0-1 0.4-1 1s0.4 1 1 1h8c0.6 0 1-0.4 1-1s-0.4-1-1-1h-3v-2h7c1.7 0 3-1.3 3-3v-10c0-1.7-1.3-3-3-3zM21 15c0 0.6-0.4 1-1 1h-16c-0.6 0-1-0.4-1-1v-10c0-0.6 0.4-1 1-1h16c0.6 0 1 0.4 1 1v10z"></path>
+    //     </symbol>
+    //   </defs>
+    // </svg>
+    <svg>
+      <use xlinkhref={iconMonitor}></use>
+    </svg>
+  );
+}
+
+export default MonitorSVG;

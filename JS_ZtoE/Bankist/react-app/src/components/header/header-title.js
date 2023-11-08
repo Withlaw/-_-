@@ -1,5 +1,5 @@
 import classes from "./header-title.module.css";
-import hero from "../assets/img/hero.png";
+import hero from "../../assets/img/hero.png";
 
 function HeaderTitle() {
   return (

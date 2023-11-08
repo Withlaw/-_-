@@ -1,4 +1,4 @@
-import HeaderTitle from "./components/header-title";
+import HeaderTitle from "./components/header/header-title";
 import Nav from "./components/navigation/navigation";
 
 function Header() {
