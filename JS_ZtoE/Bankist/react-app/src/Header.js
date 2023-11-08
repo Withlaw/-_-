@@ -1,10 +1,11 @@
-// import Nav from "./components/navigation";
+import HeaderTitle from "./components/header-title";
 import Nav from "./components/navigation/navigation";
 
 function Header() {
   return (
-    <header>
+    <header className="header">
       <Nav />
+      <HeaderTitle />
     </header>
   );
 }
