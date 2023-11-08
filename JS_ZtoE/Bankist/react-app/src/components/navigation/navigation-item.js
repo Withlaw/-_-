@@ -1,9 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import classes from "./navigation-item.module.css";
 import OpenAccount from "./open-account";
+import { ScrollContext } from "../../context/scrollContext";
 
 function NavItem({ textContext, isHovered, setIsHovered }) {
   const [isTarget, setIsTarget] = useState(false);
+  const { handleScrolling, navRef } = useContext(ScrollContext);
+  const handleNavScroll = e => {
+    e.preventDefault();
+
+    if (textContext === "Features") handleScrolling(navRef.current[0]);
+    if (textContext === "Operations") handleScrolling(navRef.current[1]);
+    if (textContext === "Testimonials") handleScrolling(navRef.current[2]);
+  };
 
   const handleMouseoverToggle = e => {
     setIsHovered(prev => !prev);
@@ -23,6 +32,7 @@ function NavItem({ textContext, isHovered, setIsHovered }) {
       }`}
       onMouseOver={handleMouseoverToggle}
       onMouseOut={handleMouseoverToggle}
+      onClick={handleNavScroll}
     >
       <a className={classes.link} href="">
         {textContext}
