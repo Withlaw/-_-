@@ -1,9 +1,14 @@
 import classes from "./modal-window.module.css";
 
-function ModalWindow() {
+function ModalWindow({ handleClickModal }) {
+  const handleKeyUp = e => {
+    console.log("gg");
+  };
   return (
-    <div className={classes.modal}>
-      <button className={classes.closeBtn}>&times;</button>
+    <div className={classes.modal} onKeyUp={handleKeyUp}>
+      <button className={classes.closeBtn} onClick={handleClickModal}>
+        &times;
+      </button>
       <h2 className={classes.header}>
         Open your bank account <br />
         in just <span className={classes.highlight}>5 minutes</span>
