@@ -1,22 +1,18 @@
+import { useState } from "react";
 import classes from "./navigation-items.module.css";
+import NavItem from "./navigation-item";
 
 function NavItems() {
-  const navList = ["Features", "Operations", "Testimonials"];
+  const navList = ["Features", "Operations", "Testimonials", "Open account"];
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <ul className={classes.links}>
       {navList.map(el => (
-        <li key={el} className={classes.item}>
-          <a className={classes.link} href="#">
-            {el}
-          </a>
-        </li>
+        <NavItem key={el} isHovered={isHovered} setIsHovered={setIsHovered}>
+          {el}
+        </NavItem>
       ))}
-      <li className={classes.item}>
-        <a className={`${classes.link} ${classes.button}`} href="#">
-          Open account
-        </a>
-      </li>
     </ul>
   );
 }
