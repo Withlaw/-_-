@@ -1,6 +1,6 @@
 import { createPortal } from "react-dom";
-import Overlay from "./modal/modal-overlay";
-import ModalWindow from "./modal/modal-window";
+import Overlay from "./modal-overlay";
+import ModalWindow from "./modal-window";
 import { useEffect } from "react";
 
 function Modal({ handleClickModal }) {

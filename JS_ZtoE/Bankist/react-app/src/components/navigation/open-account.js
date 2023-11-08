@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Modal from "./modal";
+import Modal from "../modal/modal";
 import classes from "./open-account.module.css";
 
 function OpenAccount({ isHovered, isTarget, handleMouseoverToggle }) {
