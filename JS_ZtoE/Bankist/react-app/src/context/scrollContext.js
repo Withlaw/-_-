@@ -8,13 +8,12 @@ export const useScrollContext = () => {
 };
 
 function ScrollContextProvider({ children }) {
-  const ref = useRef(null);
   const navRef = useRef([]);
   const handleScrolling = to => {
     to.scrollIntoView({ behavior: "smooth" });
   };
   return (
-    <ScrollContext.Provider value={{ ref, navRef, handleScrolling }}>
+    <ScrollContext.Provider value={{ navRef, handleScrolling }}>
       {children}
     </ScrollContext.Provider>
   );

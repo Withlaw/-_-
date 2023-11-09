@@ -5,6 +5,7 @@ import { ScrollContext } from "./context/scrollContext";
 
 function Section1() {
   const { navRef } = useContext(ScrollContext);
+
   return (
     <section className="section" ref={el => (navRef.current[0] = el)}>
       <Section1Title />

@@ -2,14 +2,17 @@ import classes from "./header-title.module.css";
 import hero from "../../assets/img/hero.png";
 import { useContext } from "react";
 import { ScrollContext } from "../../context/scrollContext";
+import { useIntersectObsContext } from "../../context/intersectObsContext";
 
 function HeaderTitle() {
-  const { ref, handleScrolling } = useContext(ScrollContext);
+  const { navRef, handleScrolling } = useContext(ScrollContext);
+  const { obsRef } = useIntersectObsContext();
+
   const handleBtnClick = e => {
-    handleScrolling(ref.current);
+    handleScrolling(navRef.current[0]);
   };
   return (
-    <div className={classes.title}>
+    <div className={classes.title} ref={el => (obsRef.current[1] = el)}>
       <h1>
         When
         <span className={classes.highlight}>banking</span>
