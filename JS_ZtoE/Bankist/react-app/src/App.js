@@ -5,6 +5,7 @@ import Section2 from "./Section2";
 import Section3 from "./Section3";
 import ScrollContextProvider from "./context/scrollContext";
 import Footer from "./Footer";
+import Section4 from "./section4";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Section1 />
         <Section2 />
         <Section3 />
+        <Section4 />
         <Footer />
       </div>
     </ScrollContextProvider>
