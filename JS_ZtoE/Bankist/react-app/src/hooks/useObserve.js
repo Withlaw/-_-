@@ -7,7 +7,7 @@ export default function useObserve(callback, options, initialRef = null) {
     (entries, observer) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
-        callback(observer);
+        callback(entry, observer);
       });
     },
     [callback]
@@ -19,9 +19,7 @@ export default function useObserve(callback, options, initialRef = null) {
       observerTarget.current.forEach(el => observer.observe(el));
     else observer.observe(observerTarget.current);
     return () => {
-      if (Array.isArray(observerTarget.current))
-        observerTarget.current.forEach(el => observer.observe(el));
-      else observer.disconnect();
+      observer.disconnect();
     };
   }, [obsCallback, options]);
 
