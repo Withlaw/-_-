@@ -15,13 +15,13 @@ export default function useObserve(callback, options, initialRef = null) {
 
   useEffect(() => {
     const observer = new IntersectionObserver(obsCallback, options);
-    if (Array.isArray(observerTarget.current))
+    if (Array.isArray(observerTarget.current)) {
       observerTarget.current.forEach(el => observer.observe(el));
-    else observer.observe(observerTarget.current);
+    } else observer.observe(observerTarget.current);
     return () => {
       observer.disconnect();
     };
-  }, [obsCallback, options]);
+  }, []);
 
   return { observerTarget };
 }

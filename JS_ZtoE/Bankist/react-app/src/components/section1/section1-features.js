@@ -1,21 +1,112 @@
+import { useMemo, useState } from "react";
+import useObserve from "../../hooks/useObserve";
+import classes from "./section1-features.module.css";
 // import iconMonitor from "../../assets/img/icons.svg#icon-monitor";
 // import { ReactComponent as MonitorSVG } from "../../assets/img/svg/moi.svg";
 
 // import MonitorSVG from "../../assets/img/svg/monitor";
-import classes from "./section1-features.module.css";
+
 import digitalLazyImg from "../../assets/img/digital-lazy.jpg";
+import digitalImg from "../../assets/img/digital.jpg";
 import growLazyImg from "../../assets/img/grow-lazy.jpg";
+import growImg from "../../assets/img/grow.jpg";
 import cardLazyImg from "../../assets/img/card-lazy.jpg";
+import cardImg from "../../assets/img/card.jpg";
 
 function Section1Features() {
+  const [isLazy, setIsLazy] = useState({
+    digital: true,
+    grow: true,
+    card: true,
+  });
+  const [isLoading, setIsLoading] = useState({
+    digital: true,
+    grow: true,
+    card: true,
+  });
+  // const fn = useMemo(
+  //   () => (entry, observer) => {
+  //     if (!entry.isIntersecting) return;
+
+  //     const { src } = entry.target.dataset;
+  //     if (src === "digital")
+  //       setIsLazy(prev => {
+  //         return { ...prev, digital: false };
+  //       });
+  //     if (src === "grow")
+  //       setIsLazy(prev => {
+  //         return { ...prev, grow: false };
+  //       });
+  //     if (src === "card")
+  //       setIsLazy(prev => {
+  //         return { ...prev, card: false };
+  //       });
+  //     observer.unobserve(entry.target);
+  //   },
+  //   []
+  // );
+  // const op = useMemo(() => {
+  //   return {
+  //     root: null,
+  //     threshold: 0,
+  //     rootMargin: "200px",
+  //   };
+  // }, []);
+
+  const { observerTarget } = useObserve(
+    (entry, observer) => {
+      if (!entry.isIntersecting) return;
+
+      const { src } = entry.target.dataset;
+      if (src === "digital")
+        setIsLazy(prev => {
+          return { ...prev, digital: false };
+        });
+      if (src === "grow")
+        setIsLazy(prev => {
+          return { ...prev, grow: false };
+        });
+      if (src === "card")
+        setIsLazy(prev => {
+          return { ...prev, card: false };
+        });
+      observer.unobserve(entry.target);
+    },
+    {
+      root: null,
+      threshold: 0,
+      rootMargin: "200px",
+    },
+    []
+  );
+  const handleLoadImg = e => {
+    if (isLazy.digital && isLazy.grow && isLazy.card) return;
+
+    const { src } = e.currentTarget.dataset;
+    if (src === "digital")
+      setIsLoading(prev => {
+        return { ...prev, digital: false };
+      });
+    if (src === "grow")
+      setIsLoading(prev => {
+        return { ...prev, grow: false };
+      });
+    if (src === "card")
+      setIsLoading(prev => {
+        return { ...prev, card: false };
+      });
+  };
   return (
     <div className={classes.features}>
       <img
-        src={digitalLazyImg}
-        data-src="img/digital.jpg"
+        src={isLazy["digital"] ? digitalLazyImg : digitalImg}
+        data-src="digital"
         alt="Computer"
-        // className={`${classes.img} ${classes.lazy}`}
-        className={`${classes.img} ${classes["lazy-img"]}`}
+        className={`${classes.img} ${
+          isLoading["digital"] ? classes["lazy-img"] : ""
+        }`}
+        ref={el => (observerTarget.current[0] = el)}
+        onLoad={handleLoadImg}
       />
       <div className={classes.feature}>
         <div className={classes.icon}>
@@ -46,17 +137,25 @@ function Section1Features() {
         </p>
       </div>
       <img
-        src={growLazyImg}
-        data-src="img/grow.jpg"
+        src={isLazy["grow"] ? growLazyImg : growImg}
+        data-src="grow"
         alt="Plant"
-        className={`${classes.img} ${classes["lazy-img"]}`}
+        className={`${classes.img} ${
+          isLoading["grow"] ? classes["lazy-img"] : ""
+        }`}
+        ref={el => (observerTarget.current[1] = el)}
+        onLoad={handleLoadImg}
       />
 
       <img
-        src={cardLazyImg}
-        data-src="img/card.jpg"
+        src={isLazy["card"] ? cardLazyImg : cardImg}
+        data-src="card"
         alt="Credit card"
-        className={`${classes.img} ${classes["lazy-img"]}`}
+        className={`${classes.img} ${
+          isLoading["card"] ? classes["lazy-img"] : ""
+        }`}
+        ref={el => (observerTarget.current[2] = el)}
+        onLoad={handleLoadImg}
       />
       <div className={classes.feature}>
         <div className={classes.icon}>
