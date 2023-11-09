@@ -5,11 +5,11 @@ import NavItems from "./navigation-items";
 import { useIntersectObsContext } from "../../context/intersectObsContext";
 
 function Nav() {
-  const { isIntersect, obsRef } = useIntersectObsContext();
+  const { isIntersect, navRef } = useIntersectObsContext();
   return (
     <nav
       className={`${classes.nav} ${isIntersect ? classes.sticky : ""}`}
-      ref={el => (obsRef.current[0] = el)}
+      ref={navRef}
     >
       <img
         src={logo}

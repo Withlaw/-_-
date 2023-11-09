@@ -6,7 +6,7 @@ export default function useObserve(callback, options, initialRef = null) {
   const obsCallback = useCallback(
     (entries, observer) => {
       entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
+        // if (!entry.isIntersecting) return;
         callback(entry, observer);
       });
     },

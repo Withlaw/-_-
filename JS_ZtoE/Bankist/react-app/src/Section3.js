@@ -9,6 +9,7 @@ function Section3() {
   const [isReveal, setIsReveal] = useState(false);
   const { observerTarget } = useObserve(
     (entry, observer) => {
+      if (!entry.isIntersecting) return;
       setIsReveal(true);
       observer.unobserve(entry.target);
     },

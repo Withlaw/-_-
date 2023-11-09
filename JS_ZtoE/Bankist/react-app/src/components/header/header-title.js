@@ -6,13 +6,13 @@ import { useIntersectObsContext } from "../../context/intersectObsContext";
 
 function HeaderTitle() {
   const { navRef, handleScrolling } = useContext(ScrollContext);
-  const { obsRef } = useIntersectObsContext();
+  const { headerTitleRed } = useIntersectObsContext();
 
   const handleBtnClick = e => {
     handleScrolling(navRef.current[0]);
   };
   return (
-    <div className={classes.title} ref={el => (obsRef.current[1] = el)}>
+    <div className={classes.title} ref={headerTitleRed}>
       <h1>
         When
         <span className={classes.highlight}>banking</span>
