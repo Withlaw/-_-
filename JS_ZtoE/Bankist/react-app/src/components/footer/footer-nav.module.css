@@ -1,0 +1,16 @@
+.nav {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5rem;
+}
+
+.item {
+  margin-right: 4rem;
+}
+
+.link {
+  font-size: 1.6rem;
+  color: #eee;
+  text-decoration: none;
+}
