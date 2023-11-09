@@ -30,6 +30,7 @@ function Section3Slider() {
     <div className={classes.slider}>
       {slideContent.map((el, idx) => (
         <div
+          key={idx}
           className={classes.slide}
           style={{ transform: `translateX(${(idx - currentSlide) * 100}%)` }}
         >
@@ -60,6 +61,7 @@ function Section3Slider() {
       <div className={classes.dots}>
         {slideContent.map((_, idx) => (
           <button
+            key={idx}
             className={`${classes.dot} ${
               currentSlide === idx ? classes["dot-active"] : ""
             }`}
