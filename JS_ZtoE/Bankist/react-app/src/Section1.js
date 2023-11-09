@@ -9,8 +9,6 @@ function Section1() {
   const { navRef } = useContext(ScrollContext);
   const { observerTarget } = useObserve(
     (entry, observer) => {
-      // console.log("entry target: ", entry.target, entry);
-      // console.log("entri1: ", entry);
       if (!entry.isIntersecting) return;
       setIsReveal(true);
       observer.unobserve(entry.target);
