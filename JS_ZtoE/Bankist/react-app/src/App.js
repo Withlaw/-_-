@@ -5,7 +5,7 @@ import Section2 from "./Section2";
 import Section3 from "./Section3";
 import ScrollContextProvider from "./context/scrollContext";
 import Footer from "./Footer";
-import Section4 from "./section4";
+import Section4 from "./Section4";
 import CookieMessage from "./Cookie";
 
 function App() {
@@ -13,12 +13,12 @@ function App() {
     <ScrollContextProvider>
       <div className="App">
         <Header />
-        <CookieMessage />
         <Section1 />
         <Section2 />
         <Section3 />
         <Section4 />
         <Footer />
+        <CookieMessage />
       </div>
     </ScrollContextProvider>
   );
