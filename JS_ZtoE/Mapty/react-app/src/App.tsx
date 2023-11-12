@@ -4,7 +4,7 @@ import './globals.css';
 // import logo from "./logo.svg";
 import Workouts from './components/workouts';
 import Copyright from './components/footer/Copyright';
-import Map, { ICoords } from './components/map';
+import Map, { CoordsType } from './components/map';
 
 import logo from './assets/logo.png';
 import LoadingSpinner from './components/layout/LoadingSpinner';
@@ -12,7 +12,7 @@ import LoadingSpinner from './components/layout/LoadingSpinner';
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   // const [isSuccess, setIsSuccess] = useState(false);
-  const [coords, serCoords] = useState<ICoords | null>([
+  const [coords, serCoords] = useState<CoordsType | null>([
     37.5866169, 127.0607943,
   ]); // success랑 함께 리듀서로 처리해보기
 

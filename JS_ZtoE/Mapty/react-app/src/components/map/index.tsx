@@ -1,9 +1,9 @@
 import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
-export type ICoords = [number, number];
+export type CoordsType = [number, number];
 
-const Map = ({ coords }: { coords: ICoords }) => {
+const Map = ({ coords }: { coords: CoordsType }) => {
   console.log(coords);
 
   return (
