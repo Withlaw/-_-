@@ -12,11 +12,16 @@ export type FormTypeList = {
   Cycling: Value[];
 };
 
-export type FormStateType = (string | number)[];
+export type FormDataType = (string | number)[][];
 
 const Workouts = () => {
+  // const dummyFormData: FormTypeList | [] = [];
+  const dummyFormData = [
+    ['Running', 5.2, 4.6, 178],
+    ['Cycling', 27, 16, 223],
+  ];
   const [isFormActive, setIsFormActive] = useState(true);
-  const [formData, setFormData] = useState<FormStateType>([]);
+  const [formData, setFormData] = useState<FormDataType>(dummyFormData);
 
   console.log('form: ', formData);
   const formList = useMemo(() => {
@@ -47,7 +52,7 @@ const Workouts = () => {
           setIsFormActive={setIsFormActive}
         />
       )}
-      <Workout />
+      <Workout formData={formData} />
     </ul>
   );
 };

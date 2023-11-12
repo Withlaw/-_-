@@ -1,6 +1,6 @@
 import { useMemo, useRef, useState } from 'react';
 import FormRow from './FormRow';
-import { FormStateType, FormTypeList } from '../workouts';
+import { FormDataType, FormTypeList } from '../workouts';
 
 /*
 1. formList 값을 의존성 주입으로 처리
@@ -9,12 +9,12 @@ import { FormStateType, FormTypeList } from '../workouts';
 3. 위를 통해서 form content를 완벽히 동적으로 처리
 4. 여러 dom node를 ref에 저장할 때: ref={el => (inputRef.current[idx] = el!)} 혹은 narrowing
 5. 배열 유니언 타입지정 (string | number)[]
-
+key={`item-${idx}`}
 */
 
 type FormPropsType = {
   formList: FormTypeList;
-  setFormData: React.Dispatch<React.SetStateAction<FormStateType>>;
+  setFormData: React.Dispatch<React.SetStateAction<FormDataType>>;
   setIsFormActive: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -28,8 +28,10 @@ const Form = ({ formList, setFormData, setIsFormActive }: FormPropsType) => {
   };
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFormData([type, ...inputRef.current.map(el => el.value)]);
-    setIsFormActive(false);
+    setFormData(prevFormData => {
+      return [...prevFormData, [type, ...inputRef.current.map(el => el.value)]];
+    });
+    // setIsFormActive(false);
     setType(initialState);
     inputRef.current.forEach((el, idx) => {
       if (idx === 0) el.focus(); // 첫번째 요소 오토 포커싱
