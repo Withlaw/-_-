@@ -19,6 +19,8 @@
 - parent class와 child class 잘 분리하기. 인스턴스는 항상 child 클래스로부터!
 - documentation: 각 데이터에 대한 간단한 설명 주석 달기
 
+2. Geolocation API
+
 ### `JS`
 
 Select elements & DOM traversing\
