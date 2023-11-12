@@ -1,9 +1,9 @@
-import Form from "../Form";
-import Workout from "./Workout";
+import Form from '../Form';
+import Workout from './Workout';
 
 const Workouts = () => {
   return (
-    <ul>
+    <ul className="workouts">
       <Form />
       <Workout />
     </ul>
