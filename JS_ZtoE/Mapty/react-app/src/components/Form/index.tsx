@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import FormRow from './FormRow';
 import { FormDataType, FormTypeList } from '../workouts';
 
@@ -10,6 +10,8 @@ import { FormDataType, FormTypeList } from '../workouts';
 4. 여러 dom node를 ref에 저장할 때: ref={el => (inputRef.current[idx] = el!)} 혹은 narrowing
 5. 배열 유니언 타입지정 (string | number)[]
 key={`item-${idx}`}
+
+form 관련 기능: 오토포커싱, 제출시 초기화, 유효성검사,
 */
 
 type FormPropsType = {
@@ -25,19 +27,41 @@ const Form = ({ formList, setFormData, setIsFormActive }: FormPropsType) => {
 
   const selectChangeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setType(e.target.value as keyof FormTypeList); // type assertion
+    inputRef.current.forEach((el, idx) => {
+      if (idx === 0) el.focus(); // 첫번째 요소 오토 포커싱
+      el.value = ''; // input 초기화
+    });
   };
+
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    for (const el of inputRef.current) {
+      if (el.value === '') {
+        alert('항목을 입력해주세요.');
+        el.focus();
+        return;
+      } else if (isNaN(+el.value) || +el.value < 0) {
+        alert('양식에 맞게 입력해주세요.');
+        el.focus();
+        return;
+      }
+    } //validation
+
     setFormData(prevFormData => {
       return [...prevFormData, [type, ...inputRef.current.map(el => el.value)]];
     });
     // setIsFormActive(false);
     setType(initialState);
+
     inputRef.current.forEach((el, idx) => {
       if (idx === 0) el.focus(); // 첫번째 요소 오토 포커싱
       el.value = ''; // 양식 제출 후 input 초기화
     });
   };
+
+  useEffect(() => {
+    inputRef.current[0].focus();
+  }, []); // 첫 렌더링시 첫번째 input 항목 포커싱
 
   return (
     <form className="form" onSubmit={submitHandler}>
