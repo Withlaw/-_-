@@ -33,13 +33,7 @@ function App() {
     <>
       <div className="sidebar">
         <img className="logo" src={logo} alt="Logo" />
-        {isLoading ? (
-          <LoadingSpinner />
-        ) : (
-          <>
-            <Workouts />
-          </>
-        )}
+        {isLoading ? <LoadingSpinner /> : <Workouts />}
         <Copyright />
       </div>
       {isSuccess ? <Map coords={coords} /> : <div> sorry ...</div>}
