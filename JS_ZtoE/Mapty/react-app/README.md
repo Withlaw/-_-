@@ -1,46 +1,78 @@
-# Getting Started with Create React App
+# Mapty toy project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 학습한 내용
 
-## Available Scripts
+1.  Architecture
 
-In the project directory, you can run:
+- => Plan or Blueprint
 
-### `npm start`
+### `App class`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- 리액트의 App 컴포넌트와 유사
+- constructor 함수에는 인스턴스가 생성될 때 바로 실행될 필요가 있는 함수들을 포함.
+- class 내에서 eventListener 호출할 때 this 바인딩 주의하기.
+- Exporting functionality into its own methods is very very important.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### `Workout class`
 
-### `npm test`
+- 여러 인스턴스를 구별하기 위한 ID 필드로 unique identifier를 부여한다.
+- parent class와 child class 잘 분리하기. 인스턴스는 항상 child 클래스로부터!
+- documentation: 각 데이터에 대한 간단한 설명 주석 달기
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### `JS`
 
-### `npm run build`
+Select elements & DOM traversing\
+Create elements & add properties(classList, textContent, style, attributes(src, data\*\*\*, … 등,))\
+Insert elements\
+Delete elements
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### `Event`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+'element'.addEventListener();\
+'element'.onClick = fn;\
+\*Event Propagation & Delegation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### `React`
 
-### `npm run eject`
+1. Navigation Menu ‘Fade Animation’
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- 컴포넌트를 잘 쪼개서 조건부 렌더링 방법으로 스타일을 적용 (기본중의기본)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. Modal
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- 모달 컴포넌트는 modal window와 modal overlay로 구성됨.
+- react portal을 사용함.
+- 열고 닫힘 기능은 toggle 개념을 이용함.
+- esc로 닫는 기능은 useEffect로 document.이벤트리스너를 호출함. (이펙트 클린업 필수)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+3. Scrolling
 
-## Learn More
+- useRef와 scrollIntoView()로 스크롤 이동을 구현함.
+- contextAPI를 이용하여 ref를 공유
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+4. Sticky navigation, Reveal section elements
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Intersection Observer API 를 사용함.
+- 옵저버 객체에 전달하는 인자: observed됐을 때 호출할 콜백함수와 옵저버 옵션.
+- entry.isIntersecting이 true면 침범할 때를, false면 나올 때를 가리킴.
+
+5.  lazy loading images
+
+- 원본 사진의 용량을 대폭 줄인 사본과 blur style을 이용
+- 처음 페이지 로딩시 사본을 로딩하고, 유저가 해당 사진에 접근할 때 원본 사진을 로드하는 방식임
+- 이미지 로딩은 비동기 작업으로, onLoad 이벤트를 활용하여 원본 이미지가 로드됐을 때 블러 효과를 제거함
+
+6. Tab component
+
+- 탭은 각자 고유의 컨텐트 영역을 소유한 컴포넌트임
+
+7. Slider
+
+- translateX(${i \* 100}%) 속성을 이용하여 이미지를 이동시킴.
+- overflow: hidden으로 현재 이미지만 화면에 나타나도록 함
+- 좌우 화살표 버튼, dots 버튼, 키보드 화살표 등으로 슬라이드를 이동할 수 있게 함.
+
+### `기타`
+
+const randomInt = (min, max) => Math.floor(Math.random() \* (max - min + 1) + min);\
+const randomColor = () => `rgb(${randomInt(0, 255)}, ${randomInt(0, 255)}, ${randomInt(0, 255)})`;
