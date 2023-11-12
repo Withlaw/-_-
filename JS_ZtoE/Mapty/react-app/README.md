@@ -28,6 +28,11 @@ Create elements & add properties(classList, textContent, style, attributes(src, 
 Insert elements\
 Delete elements
 
+3. Leaflet
+
+- React Leaflet: https://react-leaflet.js.org/
+- Name space: 여러 라이브러리를 사용할 때 이름 충돌을 막기 위해서 사용됨. 일종의 컨테이너로써 연관된 변수, 객체, 함수 등을 그룹화하여 코드를 체계적이고 안정적으로 관리할 수 있음.
+
 ### `Event`
 
 'element'.addEventListener();\

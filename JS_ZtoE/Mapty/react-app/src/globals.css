@@ -31,7 +31,6 @@ body {
 #root {
   height: 100vh;
   background-color: #fff;
-  /* padding: 2.5rem; */
 
   display: flex;
 }
