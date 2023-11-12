@@ -39,7 +39,7 @@ function App() {
         {isLoading ? <LoadingSpinner /> : <Workouts />}
         <Copyright />
       </div>
-      {coords !== null ? <Map coords={coords} /> : <div> sorry ...</div>}
+      {/* {coords !== null ? <Map coords={coords} /> : <div> sorry ...</div>} */}
     </>
   );
 }
