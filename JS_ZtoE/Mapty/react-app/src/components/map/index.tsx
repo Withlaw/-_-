@@ -1,11 +1,12 @@
 import 'leaflet/dist/leaflet.css';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer } from 'react-leaflet';
 import MyMap from './MyMap';
 
 import L, { LatLngExpression } from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import MyMarker from './MyMarker';
+import { FormDataType } from '../workouts';
 const DefaultIcon = L.icon({
   iconUrl: icon,
   shadowUrl: iconShadow,
@@ -23,13 +24,24 @@ interface CoordsProps {
   positions?: LatLngExpression;
 }
 
-const dummyPositions: CoordsType[] = [
-  [37.58815872848493, 127.06233027778825],
-  [37.59091171093732, 127.06396058344464],
-  [37.583400247115144, 127.0568816246734],
+const dummyFormData: FormDataType[] = [
+  {
+    type: 'Running',
+    id: 1243145213,
+    value: [5.2, 4.6, 178],
+    date: 'May 1',
+    positions: [37.58815872848493, 127.06233027778825],
+  },
+  {
+    type: 'Cycling',
+    id: 1243140013,
+    value: [27, 16, 223],
+    date: 'July 2',
+    positions: [37.59091171093732, 127.06396058344464],
+  },
 ];
 
-const Map = ({ coords, positions }: CoordsProps) => {
+const Map = ({ coords }: CoordsProps) => {
   return (
     <MapContainer id="map" center={coords} zoom={15} scrollWheelZoom={true}>
       <TileLayer
@@ -37,8 +49,8 @@ const Map = ({ coords, positions }: CoordsProps) => {
         url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
       />
       <MyMap />
-      {dummyPositions.map((position, idx) => (
-        <MyMarker key={`marker__${idx}`} position={position} />
+      {dummyFormData.map((data, idx) => (
+        <MyMarker key={`item__${idx}`} data={data} />
       ))}
     </MapContainer>
   );

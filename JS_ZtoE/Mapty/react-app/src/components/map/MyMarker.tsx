@@ -1,21 +1,25 @@
 import { LatLngExpression } from 'leaflet';
 import { Marker, Popup } from 'react-leaflet';
+import { FormDataType } from '../workouts';
 
 interface MyMarkerProps {
-  position: LatLngExpression;
+  data: FormDataType;
 }
 
-const MyMarker = ({ position }: MyMarkerProps) => {
+const MyMarker = ({ data }: MyMarkerProps) => {
+  console.log(data);
   return (
-    <Marker position={position}>
+    <Marker position={data.positions as [number, number]}>
       <Popup
         maxWidth={250}
         minWidth={100}
         autoClose={false}
         closeOnClick={false}
-        className={`${''}-popup`}
+        className={`${data.type.toLowerCase()}-popup`}
       >
-        hello
+        {`${data.type === 'Running' ? '🏃‍♂️' : '🚴‍♀️'} ${data.type} on ${
+          data.date
+        }`}
       </Popup>
     </Marker>
   );
