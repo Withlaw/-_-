@@ -16,13 +16,19 @@ const MyMap = () => {
       setMarkerP(mapE.latlng);
     },
   });
-  // console.log('map: ', map.getCenter(), event);
+
+  const mapPopupBtnHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log(e);
+  };
+
   return (
     <>
       {markerP && (
         <Marker position={markerP}>
           <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
+            <button className="btn" onClick={mapPopupBtnHandler}>
+              New Workout
+            </button>
           </Popup>
         </Marker>
       )}
