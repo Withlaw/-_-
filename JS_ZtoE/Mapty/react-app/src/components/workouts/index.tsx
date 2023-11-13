@@ -46,24 +46,37 @@ const Workouts = () => {
   //   const data = window.localStorage.getItem('workouts');
   //   if (!data) return;
   //   setFormData(JSON.parse(data));
-  //   console.log(';ocalstorage: ', JSON.parse(data));
-  // }, []);
+  // }, []); // get data from local storage
 
   // useEffect(() => {
   //   if (!isFormActive) return;
   //   window.localStorage.setItem('workouts', JSON.stringify(formData));
-  // }, [formData]);
+  // }, [formData]); // set data to local storage
 
   return (
     <ul className="workouts">
-      {isFormActive && (
+      {/* {isFormActive && (
         <Form
+          isFormActive={isFormActive}
           formList={dummyFormList}
           setFormData={setFormData}
           setIsFormActive={setIsFormActive}
         />
-      )}
+      )} */}
+      <Form
+        isFormActive={isFormActive}
+        formList={dummyFormList}
+        setFormData={setFormData}
+        setIsFormActive={setIsFormActive}
+      />
       <Workout formData={formData} />
+      {/* <button
+        onClick={() => {
+          setIsFormActive(prev => !prev);
+        }}
+      >
+        form
+      </button> */}
     </ul>
   );
 };

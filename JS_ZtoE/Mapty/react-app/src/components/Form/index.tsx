@@ -18,6 +18,7 @@ id 만드는 요령 : const id = Date.now().toString().slice(-10); 마치 주민
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 소수점 표기 : (number).toFixed(1)
 트러블: new Date를 직렬화하게 되면 나중에 파싱해도 문자열 타입이됨. -> Date 타입이어야 하는데...
+조건부렌더링은 display:none과 동일함. 애니메이션이 없음. 요소가 나타나고 사라질 때 애니메이션 주려면 조나스가 hidden 클래스로 css 적용한것처럼 해야함. setTimeout으로 css 적용한것도 기억해두기.
 
 */
 
@@ -25,9 +26,15 @@ type FormPropsType = {
   formList: FormTypeList;
   setFormData: React.Dispatch<React.SetStateAction<FormDataType[]>>;
   setIsFormActive: React.Dispatch<React.SetStateAction<boolean>>;
+  isFormActive: boolean;
 };
 
-const Form = ({ formList, setFormData, setIsFormActive }: FormPropsType) => {
+const Form = ({
+  formList,
+  setFormData,
+  isFormActive,
+  setIsFormActive,
+}: FormPropsType) => {
   const initialState = 'Running';
   const [type, setType] = useState<keyof FormTypeList>(initialState); // Literal type, 여기 상태도 리듀서로 관리해보기!
   const inputRef = useRef<HTMLInputElement[]>([]);
@@ -64,8 +71,9 @@ const Form = ({ formList, setFormData, setIsFormActive }: FormPropsType) => {
     ];
     setFormData(prevFormData => {
       return [
-        ...prevFormData,
         newData,
+        ...prevFormData,
+
         // [type, ...inputRef.current.map(el => +el.value), date],
       ];
     });
@@ -81,7 +89,10 @@ const Form = ({ formList, setFormData, setIsFormActive }: FormPropsType) => {
   }, []); // 첫 렌더링시 첫번째 input 항목 포커싱
 
   return (
-    <form className="form" onSubmit={submitHandler}>
+    <form
+      className={`form ${isFormActive ? '' : 'hidden'}`}
+      onSubmit={submitHandler}
+    >
       <FormRow label="Type">
         <select
           className="form__input form__input--type"
