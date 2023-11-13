@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Form from '../Form';
 import Workout from './Workout';
 
@@ -13,7 +13,7 @@ export type FormTypeList = {
 };
 
 // export type FormDataType = (string | number | Date)[][];
-export type FormDataType = [keyof FormTypeList, number, number, number, Date][];
+export type FormDataType = [keyof FormTypeList, number, number, number, Date];
 
 const dummyFormList: FormTypeList = {
   Running: [
@@ -32,7 +32,7 @@ const dummyFormList: FormTypeList = {
   //   { label: 'dfslsdf', placeholder: 'cm' },
   // ],
 };
-const dummyFormData: FormDataType = [
+const dummyFormData: FormDataType[] = [
   ['Running', 5.2, 4.6, 178, new Date()],
   ['Cycling', 27, 16, 223, new Date()],
 ];
@@ -40,7 +40,19 @@ const dummyFormData: FormDataType = [
 const Workouts = () => {
   // const dummyFormData: FormTypeList | [] = [];
   const [isFormActive, setIsFormActive] = useState(true);
-  const [formData, setFormData] = useState<FormDataType>(dummyFormData);
+  const [formData, setFormData] = useState<FormDataType[]>(dummyFormData);
+
+  // useEffect(() => {
+  //   const data = window.localStorage.getItem('workouts');
+  //   if (!data) return;
+  //   setFormData(JSON.parse(data));
+  //   console.log(';ocalstorage: ', JSON.parse(data));
+  // }, []);
+
+  // useEffect(() => {
+  //   if (!isFormActive) return;
+  //   window.localStorage.setItem('workouts', JSON.stringify(formData));
+  // }, [formData]);
 
   return (
     <ul className="workouts">

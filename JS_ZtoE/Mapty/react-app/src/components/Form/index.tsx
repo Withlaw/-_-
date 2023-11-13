@@ -17,11 +17,13 @@ form 관련 기능: 오토포커싱, 제출시 초기화, 유효성검사,
 id 만드는 요령 : const id = Date.now().toString().slice(-10); 마치 주민번호?
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 소수점 표기 : (number).toFixed(1)
+트러블: new Date를 직렬화하게 되면 나중에 파싱해도 문자열 타입이됨. -> Date 타입이어야 하는데...
+
 */
 
 type FormPropsType = {
   formList: FormTypeList;
-  setFormData: React.Dispatch<React.SetStateAction<FormDataType>>;
+  setFormData: React.Dispatch<React.SetStateAction<FormDataType[]>>;
   setIsFormActive: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -53,27 +55,29 @@ const Form = ({ formList, setFormData, setIsFormActive }: FormPropsType) => {
       }
     } //validation
 
+    const newData: FormDataType = [
+      type,
+      +inputRef.current[0].value,
+      +inputRef.current[1].value,
+      +inputRef.current[2].value,
+      new Date(),
+    ];
     setFormData(prevFormData => {
-      const date = new Date();
       return [
         ...prevFormData,
-        [
-          type,
-          +inputRef.current[0].value,
-          +inputRef.current[1].value,
-          +inputRef.current[2].value,
-          date,
-        ],
+        newData,
         // [type, ...inputRef.current.map(el => +el.value), date],
       ];
     });
+
     // setIsFormActive(false);
     setType(initialState);
     initializingInput(...inputRef.current);
   };
 
   useEffect(() => {
-    inputRef.current[0].focus();
+    // inputRef.current[0].focus();
+    initializingInput(inputRef.current[0]);
   }, []); // 첫 렌더링시 첫번째 input 항목 포커싱
 
   return (

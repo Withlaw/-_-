@@ -3,7 +3,7 @@ import NotItem from '../layout/NotItem';
 import { DATE_MONTH } from '../../constants';
 
 type WorkoutProps = {
-  formData: FormDataType;
+  formData: FormDataType[];
 };
 
 const Workout = ({ formData }: WorkoutProps) => {
