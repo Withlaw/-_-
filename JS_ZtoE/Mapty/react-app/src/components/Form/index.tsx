@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import FormRow from './FormRow';
 import { FormDataType, FormTypeList } from '../workouts';
+import { initializingInput } from '../../utils';
 
 /*
 1. formList 값을 의존성 주입으로 처리
@@ -12,6 +13,7 @@ import { FormDataType, FormTypeList } from '../workouts';
 key={`item-${idx}`}
 
 form 관련 기능: 오토포커싱, 제출시 초기화, 유효성검사,
+
 id 만드는 요령 : const id = Date.now().toString().slice(-10); 마치 주민번호?
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 소수점 표기 : (number).toFixed(1)
@@ -30,10 +32,11 @@ const Form = ({ formList, setFormData, setIsFormActive }: FormPropsType) => {
 
   const selectChangeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setType(e.target.value as keyof FormTypeList); // type assertion
-    inputRef.current.forEach((el, idx) => {
-      if (idx === 0) el.focus(); // 첫번째 요소 오토 포커싱
-      el.value = ''; // input 초기화
-    });
+    // inputRef.current.forEach((el, idx) => {
+    //   if (idx === 0) el.focus();
+    //   el.value = '';
+    // });
+    initializingInput(...inputRef.current);
   };
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
@@ -52,7 +55,6 @@ const Form = ({ formList, setFormData, setIsFormActive }: FormPropsType) => {
 
     setFormData(prevFormData => {
       const date = new Date();
-      // const id = Date.now().toString().slice(-10);
       return [
         ...prevFormData,
         [
@@ -67,11 +69,7 @@ const Form = ({ formList, setFormData, setIsFormActive }: FormPropsType) => {
     });
     // setIsFormActive(false);
     setType(initialState);
-
-    inputRef.current.forEach((el, idx) => {
-      if (idx === 0) el.focus(); // 첫번째 요소 오토 포커싱
-      el.value = ''; // 양식 제출 후 input 초기화
-    });
+    initializingInput(...inputRef.current);
   };
 
   useEffect(() => {
