@@ -8,30 +8,29 @@ import Map, { CoordsType } from './components/map';
 
 import logo from './assets/logo.png';
 import LoadingSpinner from './components/layout/LoadingSpinner';
+import NotItem from './components/layout/NotItem';
 
 function App() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   // const [isSuccess, setIsSuccess] = useState(false);
-  const [coords, serCoords] = useState<CoordsType | null>([
-    37.5866169, 127.0607943,
-  ]); // success랑 함께 리듀서로 처리해보기
+  const [coords, serCoords] = useState<CoordsType | null>(null); // success랑 함께 리듀서로 처리해보기
 
-  // useEffect(() => {
-  //   navigator.geolocation?.getCurrentPosition(
-  //     position => {
-  //       const { latitude, longitude } = position.coords;
-  //       setIsLoading(false);
-  //       // setIsSuccess(true);
-  //       serCoords([latitude, longitude]);
-  //     },
-  //     error => {
-  //       setIsLoading(false);
-  //       // setIsSuccess(false);
-  //       serCoords(null);
-  //       alert('Could not get your position');
-  //     }
-  //   );
-  // }, []);
+  useEffect(() => {
+    navigator.geolocation?.getCurrentPosition(
+      position => {
+        const { latitude, longitude } = position.coords;
+        setIsLoading(false);
+        // setIsSuccess(true);
+        serCoords([latitude, longitude]);
+      },
+      error => {
+        setIsLoading(false);
+        // setIsSuccess(false);
+        serCoords(null);
+        alert('Could not get your position');
+      }
+    );
+  }, []);
   return (
     <>
       <div className="sidebar">
@@ -39,7 +38,7 @@ function App() {
         {isLoading ? <LoadingSpinner /> : <Workouts />}
         <Copyright />
       </div>
-      {/* {coords !== null ? <Map coords={coords} /> : <div> sorry ...</div>} */}
+      {coords !== null ? <Map coords={coords} /> : <NotItem message="No Map" />}
     </>
   );
 }

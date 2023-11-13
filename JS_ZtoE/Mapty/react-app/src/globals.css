@@ -202,6 +202,7 @@ a:visited {
 }
 
 /* Popup width is defined in JS using options */
+/*
 .leaflet-popup .leaflet-popup-content-wrapper {
   background-color: var(--color-dark--1);
   color: var(--color-light--2);
@@ -223,6 +224,7 @@ a:visited {
 .cycling-popup .leaflet-popup-content-wrapper {
   border-left: 5px solid var(--color-brand--1);
 }
+*/
 
 /* loading spinner */
 .spinner {
@@ -237,7 +239,7 @@ a:visited {
 
   position: absolute;
   top: 40%;
-  left: 45%;
+  left: 50%;
 
   z-index: 101;
 }
