@@ -16,6 +16,7 @@ form 관련 기능: 오토포커싱, 제출시 초기화, 유효성검사,
 
 id 만드는 요령 : const id = Date.now().toString().slice(-10); 마치 주민번호?
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+사람이 읽기 편한 날짜값 -> new Date().toLocaleDateString(...);
 소수점 표기 : (number).toFixed(1)
 트러블: new Date를 직렬화하게 되면 나중에 파싱해도 문자열 타입이됨. -> Date 타입이어야 하는데...
 조건부렌더링은 display:none과 동일함. 애니메이션이 없음. 요소가 나타나고 사라질 때 애니메이션 주려면 조나스가 hidden 클래스로 css 적용한것처럼 해야함. setTimeout으로 css 적용한것도 기억해두기.
@@ -62,20 +63,18 @@ const Form = ({
       }
     } //validation
 
-    const newData: FormDataType = [
-      type,
-      +inputRef.current[0].value,
-      +inputRef.current[1].value,
-      +inputRef.current[2].value,
-      new Date(),
-    ];
-    setFormData(prevFormData => {
-      return [
-        newData,
-        ...prevFormData,
+    const newData: FormDataType = {
+      type: type,
+      id: +Date.now().toString().slice(-10),
+      value: inputRef.current.map(el => +el.value),
+      date: new Date().toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric',
+      }),
+    };
 
-        // [type, ...inputRef.current.map(el => +el.value), date],
-      ];
+    setFormData(prevFormData => {
+      return [newData, ...prevFormData];
     });
 
     // setIsFormActive(false);

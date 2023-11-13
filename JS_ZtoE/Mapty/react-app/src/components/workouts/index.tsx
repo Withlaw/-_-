@@ -13,7 +13,14 @@ export type FormTypeList = {
 };
 
 // export type FormDataType = (string | number | Date)[][];
-export type FormDataType = [keyof FormTypeList, number, number, number, Date];
+// export type FormValueType = ;
+
+export type FormDataType = {
+  type: keyof FormTypeList;
+  id: number;
+  value: number[];
+  date: string;
+};
 
 const dummyFormList: FormTypeList = {
   Running: [
@@ -33,8 +40,18 @@ const dummyFormList: FormTypeList = {
   // ],
 };
 const dummyFormData: FormDataType[] = [
-  ['Running', 5.2, 4.6, 178, new Date()],
-  ['Cycling', 27, 16, 223, new Date()],
+  {
+    type: 'Running',
+    id: 1243145213,
+    value: [5.2, 4.6, 178],
+    date: 'May 1',
+  },
+  {
+    type: 'Cycling',
+    id: 1243140013,
+    value: [27, 16, 223],
+    date: 'July 2',
+  },
 ];
 
 const Workouts = () => {
