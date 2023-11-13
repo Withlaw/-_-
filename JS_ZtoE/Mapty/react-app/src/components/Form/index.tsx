@@ -13,7 +13,8 @@ key={`item-${idx}`}
 
 form 관련 기능: 오토포커싱, 제출시 초기화, 유효성검사,
 id 만드는 요령 : const id = Date.now().toString().slice(-10); 마치 주민번호?
-
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+소수점 표기 : (number).toFixed(1)
 */
 
 type FormPropsType = {
@@ -56,9 +57,9 @@ const Form = ({ formList, setFormData, setIsFormActive }: FormPropsType) => {
         ...prevFormData,
         [
           type,
-          +inputRef.current[0],
-          +inputRef.current[1],
-          +inputRef.current[2],
+          +inputRef.current[0].value,
+          +inputRef.current[1].value,
+          +inputRef.current[2].value,
           date,
         ],
         // [type, ...inputRef.current.map(el => +el.value), date],
