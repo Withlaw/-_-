@@ -16,10 +16,24 @@ form 관련 기능: 오토포커싱, 제출시 초기화, 유효성검사,
 
 id 만드는 요령 : const id = Date.now().toString().slice(-10); 마치 주민번호?
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-사람이 읽기 편한 날짜값 -> new Date().toLocaleDateString(...);
+
 소수점 표기 : (number).toFixed(1)
 트러블: new Date를 직렬화하게 되면 나중에 파싱해도 문자열 타입이됨. -> Date 타입이어야 하는데...
+그래서 사람이 읽기 편한 날짜값 -> new Date().toLocaleDateString(...):string 을 이용함.
 조건부렌더링은 display:none과 동일함. 애니메이션이 없음. 요소가 나타나고 사라질 때 애니메이션 주려면 조나스가 hidden 클래스로 css 적용한것처럼 해야함. setTimeout으로 css 적용한것도 기억해두기.
+
+// prettier-ignore 이 주석 다음 줄은 프리티어 적용 무시함.
+
+*조나스가 새로운 메소드를 생성하는 과정을 보면, 구현할 기능이 필요한 위치에서 함수를 먼저 호출한 다음 함수를 정의함
+
+guard clause : 모던 자바스크립트에서 조건문에 else 문은 잘 안쓴다.
+
+zoom level 처럼 여러번 쓰이는 데이터는 변수로 처리하여 한번에 관리하는 습관! 아주 기본 중의 기본
+
+public interface를 이용하여 인스턴스와 인터렉트하는 것도 중요함.
+
+로컬 스토리지: 브라우저 저장소 api. 블로킹 특징이 있어서 적은 용량의 데이터를 다루는 것이 좋음
+기본적으로 {키:밸류} 한쌍씩 저장함
 
 */
 

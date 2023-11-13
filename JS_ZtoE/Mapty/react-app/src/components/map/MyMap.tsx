@@ -12,10 +12,11 @@ const MyMap = () => {
       // const { lat, lng } = mapE.latlng;
 
       // setMarkerP([lat, lng]);
+      console.log(mapE.latlng);
       setMarkerP(mapE.latlng);
     },
   });
-  console.log('map: ', map.getCenter(), event);
+  // console.log('map: ', map.getCenter(), event);
   return (
     <>
       {markerP && (
