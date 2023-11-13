@@ -1,5 +1,3 @@
-import Card from '../layout/Card';
-
 type FormRowType = {
   children: React.ReactNode;
   label: string;
@@ -7,12 +5,10 @@ type FormRowType = {
 
 const FormRow = ({ children, label }: FormRowType) => {
   return (
-    <Card>
-      <div className="form__row">
-        <label className="form__label">{label}</label>
-        {children}
-      </div>
-    </Card>
+    <div className="form__row">
+      <label className="form__label">{label}</label>
+      {children}
+    </div>
   );
 };
 

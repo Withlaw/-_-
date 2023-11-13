@@ -12,6 +12,8 @@ import { FormDataType, FormTypeList } from '../workouts';
 key={`item-${idx}`}
 
 form 관련 기능: 오토포커싱, 제출시 초기화, 유효성검사,
+id 만드는 요령 : const id = Date.now().toString().slice(-10); 마치 주민번호?
+
 */
 
 type FormPropsType = {
@@ -22,7 +24,7 @@ type FormPropsType = {
 
 const Form = ({ formList, setFormData, setIsFormActive }: FormPropsType) => {
   const initialState = 'Running';
-  const [type, setType] = useState<keyof FormTypeList>(initialState); // Literal type
+  const [type, setType] = useState<keyof FormTypeList>(initialState); // Literal type, 여기 상태도 리듀서로 관리해보기!
   const inputRef = useRef<HTMLInputElement[]>([]);
 
   const selectChangeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -48,7 +50,19 @@ const Form = ({ formList, setFormData, setIsFormActive }: FormPropsType) => {
     } //validation
 
     setFormData(prevFormData => {
-      return [...prevFormData, [type, ...inputRef.current.map(el => el.value)]];
+      const date = new Date();
+      // const id = Date.now().toString().slice(-10);
+      return [
+        ...prevFormData,
+        [
+          type,
+          +inputRef.current[0],
+          +inputRef.current[1],
+          +inputRef.current[2],
+          date,
+        ],
+        // [type, ...inputRef.current.map(el => +el.value), date],
+      ];
     });
     // setIsFormActive(false);
     setType(initialState);
