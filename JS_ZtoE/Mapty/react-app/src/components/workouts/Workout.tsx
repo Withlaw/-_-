@@ -1,6 +1,6 @@
-import { useMemo } from 'react';
 import { FormDataType } from '.';
 import NotItem from '../layout/NotItem';
+import { DATE_MONTH } from '../../constants';
 
 type WorkoutProps = {
   formData: FormDataType;
@@ -8,23 +8,6 @@ type WorkoutProps = {
 
 const Workout = ({ formData }: WorkoutProps) => {
   const isData = formData.length !== 0;
-  const months = useMemo(
-    () => [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ],
-    []
-  );
   return (
     <>
       {isData ? (
@@ -38,7 +21,7 @@ const Workout = ({ formData }: WorkoutProps) => {
             data-id={data[4].getTime().toString().slice(-10)}
           >
             <h2 className="workout__title">{`${data[0]} on ${
-              months[data[4].getMonth()]
+              DATE_MONTH[data[4].getMonth()]
             } ${data[4].getDate()}`}</h2>
             <div className="workout__details">
               <span className="workout__icon">🏃‍♂️</span>
