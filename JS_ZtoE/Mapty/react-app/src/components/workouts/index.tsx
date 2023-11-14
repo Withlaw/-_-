@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import Form from '../Form';
+import Form from '../form';
 import Workout from './Workout';
 import { CoordsType } from '../map';
 
