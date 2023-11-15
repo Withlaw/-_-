@@ -1,10 +1,8 @@
 // Workout
-interface WorkoutProps {
-  id: number;
+export interface WorkoutProps {
   distance: number;
   duration: number;
   position: [number, number];
-  date: string;
 }
 
 class Workout {
@@ -13,6 +11,11 @@ class Workout {
   distance: number;
   duration: number;
   position: [number, number];
+
+  elevationGain?: number;
+  speed?: string;
+  cadence?: number;
+  pace?: string;
 
   constructor(values: WorkoutProps) {
     this.distance = values.distance; // in km
@@ -39,20 +42,20 @@ class Workout {
 }
 
 // Running
-interface RunningProps extends WorkoutProps {
+export interface IRunningProps extends WorkoutProps {
   cadence: number;
-  pace: number;
 }
 
 export class Running extends Workout {
   type = 'Running';
   cadence: number;
-  pace: number;
+  pace: string;
 
-  constructor(values: RunningProps) {
+  constructor(values: IRunningProps) {
     super(values);
     this.cadence = values.cadence;
-    this.pace = this._calcPace();
+    this.pace = this._calcPace().toFixed(1);
+    // this.pace = this.duration / this.distance;
   }
 
   _calcPace() {
@@ -62,20 +65,20 @@ export class Running extends Workout {
 }
 
 // Cycling
-interface CyclingProps extends WorkoutProps {
+export interface ICyclingProps extends WorkoutProps {
   elevationGain: number;
-  speed: number;
 }
 
 export class Cycling extends Workout {
   type = 'Cycling';
   elevationGain: number;
-  speed: number;
+  speed: string;
 
-  constructor(values: CyclingProps) {
+  constructor(values: ICyclingProps) {
     super(values);
     this.elevationGain = values.elevationGain;
-    this.speed = this._calcSpeed();
+    this.speed = this._calcSpeed().toFixed(1);
+    // this.speed = (this.distance / this.duration) * 60;
   }
 
   _calcSpeed() {
@@ -83,3 +86,5 @@ export class Cycling extends Workout {
     return (this.distance / this.duration) * 60;
   }
 }
+
+export type WorkoutInstanceProps = IRunningProps | ICyclingProps;

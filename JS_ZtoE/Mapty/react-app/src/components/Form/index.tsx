@@ -1,12 +1,23 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import FormRow from './FormRow';
-import { FormDataType, FormTypeList } from '../workouts';
+import { FormDataType, FormContentsType } from '../workouts';
 import { initializingInput } from '../../utils';
+import { WorkoutType } from '../context/WorkoutContextProvider';
+import {
+  Cycling,
+  Running,
+  WorkoutInstanceProps,
+  WorkoutProps,
+} from '../../state';
+import {
+  PositionType,
+  usePositionContext,
+} from '../context/PositionContextProvider';
 
 /*
 1. formList 값을 의존성 주입으로 처리
 2. formList의 타입 종류에 따라 type state의 타입을 동적 지정
-  e.target.value는 항상 string으로 타입 추론하기 때문에 'Running'과 'Cycling'만 받을 수 있는 setType의 인자에 as keyof FormTypeList 와 같이 type assertion 함
+  e.target.value는 항상 string으로 타입 추론하기 때문에 'Running'과 'Cycling'만 받을 수 있는 setType의 인자에 as keyof FormContentsType 와 같이 type assertion 함
 3. 위를 통해서 form content를 완벽히 동적으로 처리
 4. 여러 dom node를 ref에 저장할 때: ref={el => (inputRef.current[idx] = el!)} 혹은 narrowing
 5. 배열 유니언 타입지정 (string | number)[]
@@ -42,24 +53,22 @@ public interface를 이용하여 인스턴스와 인터렉트하는 것도 중�
 */
 
 type FormPropsType = {
-  formList: FormTypeList;
-  setFormData: React.Dispatch<React.SetStateAction<FormDataType[]>>;
-  setIsFormActive: React.Dispatch<React.SetStateAction<boolean>>;
-  isFormActive: boolean;
+  formContents: FormContentsType;
+  // setFormData: React.Dispatch<React.SetStateAction<FormDataType[]>>;
+  // setIsFormActive: React.Dispatch<React.SetStateAction<boolean>>;
+  // isFormActive: boolean;
+  setWorkouts: React.Dispatch<React.SetStateAction<WorkoutType[]>>;
 };
 
-const Form = ({
-  formList,
-  setFormData,
-  isFormActive,
-  setIsFormActive,
-}: FormPropsType) => {
+const Form = ({ formContents, setWorkouts }: FormPropsType) => {
   const initialState = 'Running';
-  const [type, setType] = useState<keyof FormTypeList>(initialState); // Literal type, 여기 상태도 리듀서로 관리해보기!
+  const [type, setType] = useState<keyof FormContentsType>('Running'); // Literal type, 여기 상태도 리듀서로 관리해보기!
+  // const inputRef = useRef<HTMLInputElement[]>([]);
   const inputRef = useRef<HTMLInputElement[]>([]);
+  const { position, setPosition } = usePositionContext();
 
   const selectChangeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setType(e.target.value as keyof FormTypeList); // type assertion
+    setType(e.target.value as keyof FormContentsType); // type assertion
     // inputRef.current.forEach((el, idx) => {
     //   if (idx === 0) el.focus();
     //   el.value = '';
@@ -81,33 +90,42 @@ const Form = ({
       }
     } //validation
 
-    const newData: FormDataType = {
-      type: type,
-      id: +Date.now().toString().slice(-10),
-      value: inputRef.current.map(el => +el.value),
-      date: new Date().toLocaleDateString('en-US', {
-        month: 'long',
-        day: 'numeric',
-      }),
+    const data: WorkoutProps = {
+      distance: +inputRef.current[0].value,
+      duration: +inputRef.current[1].value,
+      position: position!,
     };
 
-    setFormData(prevFormData => {
-      return [newData, ...prevFormData];
+    let workout: WorkoutType;
+    if (type === 'Running')
+      workout = new Running({
+        ...data,
+        cadence: +inputRef.current[2].value,
+      });
+    else if (type === 'Cycling')
+      workout = new Cycling({
+        ...data,
+        elevationGain: +inputRef.current[2].value,
+      });
+
+    setWorkouts(prevWorkouts => {
+      return [workout, ...prevWorkouts];
     });
 
-    // setIsFormActive(false);
     setType(initialState);
     initializingInput(...inputRef.current);
+    setPosition(null);
   };
 
   useEffect(() => {
+    if (position === null) return;
     // inputRef.current[0].focus();
     initializingInput(inputRef.current[0]);
   }, []); // 첫 렌더링시 첫번째 input 항목 포커싱
 
   return (
     <form
-      className={`form ${isFormActive ? '' : 'hidden'}`}
+      className={`form ${position !== null ? '' : 'hidden'}`}
       onSubmit={submitHandler}
     >
       <FormRow label="Type">
@@ -116,14 +134,14 @@ const Form = ({
           onChange={selectChangeHandler}
           value={type}
         >
-          {Object.keys(formList).map((el, idx) => (
+          {Object.keys(formContents).map((el, idx) => (
             <option key={`item-${idx}`} value={el}>
               {el}
             </option>
           ))}
         </select>
       </FormRow>
-      {formList[type].map((el, idx) => (
+      {formContents[type].map((el, idx) => (
         <FormRow key={`item-${idx}`} label={el.label}>
           <input
             // ref={el => (inputRef.current[idx] = el)!}

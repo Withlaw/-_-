@@ -1,51 +1,54 @@
-import { FormDataType } from '.';
-import NotItem from '../layout/NotItem';
+import { Running } from '../../state';
+import { WorkoutType } from '../context/WorkoutContextProvider';
 
 type WorkoutProps = {
-  formData: FormDataType[];
+  workouts: WorkoutType[];
 };
 
-const Workout = ({ formData }: WorkoutProps) => {
-  const isData = formData.length !== 0;
+const Workout = ({ workouts }: WorkoutProps) => {
   return (
     <>
-      {isData ? (
-        formData.map((data, idx) => (
-          <li
-            key={`item-${idx}`}
-            className={`workout workout--${data.type.toLowerCase()}`}
-            data-id={data.id}
-          >
-            <h2 className="workout__title">{`${data.type} on ${data.date}`}</h2>
-            <div className="workout__details">
-              <span className="workout__icon">
-                {data.type === 'Running' ? '🏃‍♂️' : '🚴‍♀️'}
-              </span>
-              <span className="workout__value">{data.value[0]}</span>
-              <span className="workout__unit">km</span>
-            </div>
-            <div className="workout__details">
-              <span className="workout__icon">⏱</span>
-              <span className="workout__value">{data.value[1]}</span>
-              <span className="workout__unit">min</span>
-            </div>
-            <div className="workout__details">
-              <span className="workout__icon">⚡️</span>
-              <span className="workout__value">
-                {(data.value[1] / data.value[2]).toFixed(1)}
-              </span>
-              <span className="workout__unit">min/km</span>
-            </div>
-            <div className="workout__details">
-              <span className="workout__icon">🦶🏼</span>
-              <span className="workout__value">{data.value[2]}</span>
-              <span className="workout__unit">spm</span>
-            </div>
-          </li>
-        ))
-      ) : (
-        <NotItem />
-      )}
+      {workouts.map(data => (
+        <li
+          key={data.id}
+          className={`workout workout--${data.type.toLowerCase()}`}
+          data-id={data.id}
+        >
+          <h2 className="workout__title">{`${data.type} on ${data.date}`}</h2>
+          <div className="workout__details">
+            <span className="workout__icon">
+              {data.type === 'Running' && '🏃‍♂️'}
+              {data.type === 'Cycling' && '🚴‍♀️'}
+            </span>
+            <span className="workout__value">{data.distance}</span>
+            <span className="workout__unit">km</span>
+          </div>
+          <div className="workout__details">
+            <span className="workout__icon">⏱</span>
+            <span className="workout__value">{data.duration}</span>
+            <span className="workout__unit">min</span>
+          </div>
+          <div className="workout__details">
+            <span className="workout__icon">⚡️</span>
+            <span className="workout__value">
+              {data.type === 'Running' && data.pace}
+              {data.type === 'Cycling' && data.speed}
+            </span>
+            <span className="workout__unit">min/km</span>
+          </div>
+          <div className="workout__details">
+            <span className="workout__icon">
+              {data.type === 'Running' && '🦶🏼'}
+              {data.type === 'Cycling' && '⛰'}
+            </span>
+            <span className="workout__value">
+              {data.type === 'Running' && data.cadence}
+              {data.type === 'Cycling' && data.elevationGain}
+            </span>
+            <span className="workout__unit">spm</span>
+          </div>
+        </li>
+      ))}
     </>
   );
 };

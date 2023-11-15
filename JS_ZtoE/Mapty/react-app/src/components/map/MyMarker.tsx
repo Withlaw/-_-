@@ -1,27 +1,28 @@
 import { LatLngExpression } from 'leaflet';
 import { Marker, Popup } from 'react-leaflet';
 import { FormDataType } from '../workouts';
+import { useWorkoutContext } from '../context/WorkoutContextProvider';
 
-interface MyMarkerProps {
-  data: FormDataType;
-}
-
-const MyMarker = ({ data }: MyMarkerProps) => {
-  console.log(data);
+const MyMarker = () => {
+  const { workouts } = useWorkoutContext();
   return (
-    <Marker position={data.positions as [number, number]}>
-      <Popup
-        maxWidth={250}
-        minWidth={100}
-        autoClose={false}
-        closeOnClick={false}
-        className={`${data.type.toLowerCase()}-popup`}
-      >
-        {`${data.type === 'Running' ? '🏃‍♂️' : '🚴‍♀️'} ${data.type} on ${
-          data.date
-        }`}
-      </Popup>
-    </Marker>
+    <>
+      {workouts.map((workout, idx) => (
+        <Marker key={`item__${idx}`} position={workout.position}>
+          <Popup
+            maxWidth={250}
+            minWidth={100}
+            autoClose={false}
+            closeOnClick={false}
+            className={`${workout.type.toLowerCase()}-popup`}
+          >
+            {workout.type === 'Running' && '🏃‍♂️'}
+            {workout.type === 'Cycling' && '🚴‍♀️'}
+            {` ${workout.type} on ${workout.date}`}
+          </Popup>
+        </Marker>
+      ))}
+    </>
   );
 };
 

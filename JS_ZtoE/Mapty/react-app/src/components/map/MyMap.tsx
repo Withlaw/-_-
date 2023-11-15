@@ -2,34 +2,38 @@ import { useState } from 'react';
 
 import { Marker, useMap, useMapEvents, Popup } from 'react-leaflet';
 
-import { LatLngExpression } from 'leaflet';
+import {
+  PositionType,
+  usePositionContext,
+} from '../context/PositionContextProvider';
 
 const MyMap = () => {
-  const [markerP, setMarkerP] = useState<LatLngExpression | null>(null);
+  const [marker, setMarker] = useState<PositionType | null>(null);
+  const { position, setPosition } = usePositionContext();
   const map = useMap();
   const event = useMapEvents({
     click: mapE => {
-      // const { lat, lng } = mapE.latlng;
-
-      // setMarkerP([lat, lng]);
-      console.log(mapE.latlng);
-      setMarkerP(mapE.latlng);
+      // console.log(mapE.latlng);
+      // setMarkerP(mapE.latlng);
+      const { lat, lng } = mapE.latlng;
+      // setMarker([lat, lng]);
+      setPosition([lat, lng]);
     },
   });
-
-  const mapPopupBtnHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(e);
-  };
+  // const mapPopupBtnHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+  //   if (!marker) return;
+  //   setPosition(marker);
+  // };
 
   return (
     <>
-      {markerP && (
-        <Marker position={markerP}>
-          <Popup>
+      {position && (
+        <Marker position={position}>
+          {/* <Popup>
             <button className="btn" onClick={mapPopupBtnHandler}>
               New Workout
             </button>
-          </Popup>
+          </Popup> */}
         </Marker>
       )}
     </>

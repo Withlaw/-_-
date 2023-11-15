@@ -9,6 +9,8 @@ import Map, { CoordsType } from './components/map';
 import logo from './assets/logo.png';
 import LoadingSpinner from './components/layout/LoadingSpinner';
 import NotItem from './components/layout/NotItem';
+import WorkoutContextProvider from './components/context/WorkoutContextProvider';
+import PositionContextProvider from './components/context/PositionContextProvider';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -32,14 +34,20 @@ function App() {
     );
   }, []);
   return (
-    <>
-      <div className="sidebar">
-        <img className="logo" src={logo} alt="Logo" />
-        {isLoading ? <LoadingSpinner /> : <Workouts />}
-        <Copyright />
-      </div>
-      {coords !== null ? <Map coords={coords} /> : <NotItem message="No Map" />}
-    </>
+    <WorkoutContextProvider>
+      <PositionContextProvider>
+        <div className="sidebar">
+          <img className="logo" src={logo} alt="Logo" />
+          {isLoading ? <LoadingSpinner /> : <Workouts />}
+          <Copyright />
+        </div>
+        {coords !== null ? (
+          <Map coords={coords} />
+        ) : (
+          <NotItem message="No Map" />
+        )}
+      </PositionContextProvider>
+    </WorkoutContextProvider>
   );
 }
 

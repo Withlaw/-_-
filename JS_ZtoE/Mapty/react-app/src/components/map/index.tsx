@@ -24,23 +24,6 @@ interface CoordsProps {
   positions?: LatLngExpression;
 }
 
-const dummyFormData: FormDataType[] = [
-  {
-    type: 'Running',
-    id: 1243145213,
-    value: [5.2, 4.6, 178],
-    date: 'May 1',
-    positions: [37.58815872848493, 127.06233027778825],
-  },
-  {
-    type: 'Cycling',
-    id: 1243140013,
-    value: [27, 16, 223],
-    date: 'July 2',
-    positions: [37.59091171093732, 127.06396058344464],
-  },
-];
-
 const Map = ({ coords }: CoordsProps) => {
   return (
     <MapContainer id="map" center={coords} zoom={15} scrollWheelZoom={true}>
@@ -49,9 +32,7 @@ const Map = ({ coords }: CoordsProps) => {
         url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
       />
       <MyMap />
-      {dummyFormData.map((data, idx) => (
-        <MyMarker key={`item__${idx}`} data={data} />
-      ))}
+      <MyMarker />
     </MapContainer>
   );
 };
