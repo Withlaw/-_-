@@ -1,6 +1,4 @@
-import { LatLngExpression } from 'leaflet';
 import { Marker, Popup } from 'react-leaflet';
-import { FormDataType } from '../workouts';
 import { useWorkoutContext } from '../context/WorkoutContextProvider';
 
 const MyMarker = () => {

@@ -1,4 +1,3 @@
-import { Cycling, Running } from '../../state';
 import { WorkoutType } from '../context/WorkoutContextProvider';
 
 type WorkoutProps = {

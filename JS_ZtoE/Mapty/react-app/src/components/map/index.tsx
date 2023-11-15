@@ -6,7 +6,6 @@ import L, { LatLngExpression } from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import MyMarker from './MyMarker';
-import { FormDataType } from '../workouts';
 const DefaultIcon = L.icon({
   iconUrl: icon,
   shadowUrl: iconShadow,

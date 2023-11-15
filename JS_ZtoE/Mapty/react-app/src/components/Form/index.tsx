@@ -1,18 +1,10 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import FormRow from './FormRow';
-import { FormDataType, FormContentsType } from '../workouts';
+import { FormContentsType } from '../workouts';
 import { initializingInput } from '../../utils';
 import { WorkoutType } from '../context/WorkoutContextProvider';
-import {
-  Cycling,
-  Running,
-  WorkoutInstanceProps,
-  WorkoutProps,
-} from '../../state';
-import {
-  PositionType,
-  usePositionContext,
-} from '../context/PositionContextProvider';
+import { Cycling, Running, WorkoutProps } from '../../state';
+import { usePositionContext } from '../context/PositionContextProvider';
 
 /*
 1. formList 값을 의존성 주입으로 처리
@@ -47,6 +39,7 @@ public interface를 이용하여 인스턴스와 인터렉트하는 것도 중�
 기본적으로 {키:밸류} 한쌍씩 저장함
 
 객체를 직렬화하는 과정에서 프로토타입 체인이 사라진다. 따라서 스토리지에는 항상 값만 저장한다. 조나스는 cycling, running class에 메소드 없이 필드만 구성했다
+-> data instanceof Running 처럼 클래스 타입 체크도 안됨.
 
 데이터의 라이프사이클을 잘 고려해야한다. 앱을 구현해나가면서 점점 데이터와 기능들이 많아지면 라이프사이클이 꼬일 수 있다. 기존 데이터가 언제 로드되는지, 새 데이터가 언제 추가되는지 그 시점을 중심으로 순서를 잘 생각하면서 혼란을 피할것
 
@@ -54,25 +47,17 @@ public interface를 이용하여 인스턴스와 인터렉트하는 것도 중�
 
 type FormPropsType = {
   formContents: FormContentsType;
-  // setFormData: React.Dispatch<React.SetStateAction<FormDataType[]>>;
-  // setIsFormActive: React.Dispatch<React.SetStateAction<boolean>>;
-  // isFormActive: boolean;
   setWorkouts: React.Dispatch<React.SetStateAction<WorkoutType[]>>;
 };
 
 const Form = ({ formContents, setWorkouts }: FormPropsType) => {
   const initialState = 'Running';
   const [type, setType] = useState<keyof FormContentsType>('Running'); // Literal type, 여기 상태도 리듀서로 관리해보기!
-  // const inputRef = useRef<HTMLInputElement[]>([]);
   const inputRef = useRef<HTMLInputElement[]>([]);
   const { position, setPosition } = usePositionContext();
 
   const selectChangeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setType(e.target.value as keyof FormContentsType); // type assertion
-    // inputRef.current.forEach((el, idx) => {
-    //   if (idx === 0) el.focus();
-    //   el.value = '';
-    // });
     initializingInput(...inputRef.current);
   };
 
@@ -119,7 +104,6 @@ const Form = ({ formContents, setWorkouts }: FormPropsType) => {
 
   useEffect(() => {
     if (position === null) return;
-    // inputRef.current[0].focus();
     initializingInput(inputRef.current[0]);
   }, [position]); // 첫 렌더링시 첫번째 input 항목 포커싱
 

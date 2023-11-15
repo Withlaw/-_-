@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
-import { Cycling, ICyclingProps, IRunningProps, Running } from '../../state';
+import { Cycling, Running } from '../../state';
 
 const dummyRunning = new Running({
   distance: 5.2,
@@ -13,11 +13,7 @@ const dummyCycling = new Cycling({
   elevationGain: 223,
   position: [37.58815872848493, 127.06233027778825],
 });
-const dummyWorkouts = [dummyRunning, dummyCycling];
-
 export type WorkoutType = typeof dummyRunning | typeof dummyCycling;
-
-console.log(typeof dummyRunning, typeof Cycling);
 
 // context
 type WorkoutContextType = {
