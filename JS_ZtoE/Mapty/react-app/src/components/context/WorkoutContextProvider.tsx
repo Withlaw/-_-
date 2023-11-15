@@ -15,9 +15,9 @@ const dummyCycling = new Cycling({
 });
 const dummyWorkouts = [dummyRunning, dummyCycling];
 
-type RunningType = typeof dummyRunning;
-
 export type WorkoutType = typeof dummyRunning | typeof dummyCycling;
+
+console.log(typeof dummyRunning, typeof Cycling);
 
 // context
 type WorkoutContextType = {

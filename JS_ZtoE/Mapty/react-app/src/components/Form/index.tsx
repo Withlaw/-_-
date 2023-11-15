@@ -121,7 +121,7 @@ const Form = ({ formContents, setWorkouts }: FormPropsType) => {
     if (position === null) return;
     // inputRef.current[0].focus();
     initializingInput(inputRef.current[0]);
-  }, []); // 첫 렌더링시 첫번째 input 항목 포커싱
+  }, [position]); // 첫 렌더링시 첫번째 input 항목 포커싱
 
   return (
     <form

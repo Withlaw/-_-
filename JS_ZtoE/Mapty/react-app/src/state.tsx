@@ -12,10 +12,10 @@ class Workout {
   duration: number;
   position: [number, number];
 
-  elevationGain?: number;
-  speed?: string;
-  cadence?: number;
-  pace?: string;
+  // elevationGain?: number;
+  // speed?: string;
+  // cadence?: number;
+  // pace?: string;
 
   constructor(values: WorkoutProps) {
     this.distance = values.distance; // in km
@@ -28,7 +28,7 @@ class Workout {
       day: 'numeric',
     });
   }
-  _setDescription(option: Intl.DateTimeFormatOptions) {
+  private _setDescription(option: Intl.DateTimeFormatOptions) {
     /*
     // prettier-ignore
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -47,7 +47,7 @@ export interface IRunningProps extends WorkoutProps {
 }
 
 export class Running extends Workout {
-  type = 'Running';
+  type = 'Running' as const;
   cadence: number;
   pace: string;
 
@@ -58,7 +58,7 @@ export class Running extends Workout {
     // this.pace = this.duration / this.distance;
   }
 
-  _calcPace() {
+  private _calcPace() {
     // min/km
     return this.duration / this.distance;
   }
@@ -70,7 +70,7 @@ export interface ICyclingProps extends WorkoutProps {
 }
 
 export class Cycling extends Workout {
-  type = 'Cycling';
+  type = 'Cycling' as const;
   elevationGain: number;
   speed: string;
 
@@ -81,7 +81,7 @@ export class Cycling extends Workout {
     // this.speed = (this.distance / this.duration) * 60;
   }
 
-  _calcSpeed() {
+  private _calcSpeed() {
     // km/h
     return (this.distance / this.duration) * 60;
   }
