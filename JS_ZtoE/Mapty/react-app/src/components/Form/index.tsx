@@ -40,8 +40,18 @@ public interface를 이용하여 인스턴스와 인터렉트하는 것도 중�
 
 객체를 직렬화하는 과정에서 프로토타입 체인이 사라진다. 따라서 스토리지에는 항상 값만 저장한다. 조나스는 cycling, running class에 메소드 없이 필드만 구성했다
 -> data instanceof Running 처럼 클래스 타입 체크도 안됨.
+-> 앱 전반에서 중요하게 다뤄지는 workout 데이터는 클래스로 구현하였음. 이유는 수정과 확장에 편해보여서.
+-> dummy data를 넣어 예시용 인스턴스를 만들고 이를 타입화하였음. Running과 Cylcing 두 클래스의 인스턴스를 타입 지정하고, type 필드에 리터럴 타입을 지정하여 타입 가드 처리함(workout 컴포넌트 참고).
 
 데이터의 라이프사이클을 잘 고려해야한다. 앱을 구현해나가면서 점점 데이터와 기능들이 많아지면 라이프사이클이 꼬일 수 있다. 기존 데이터가 언제 로드되는지, 새 데이터가 언제 추가되는지 그 시점을 중심으로 순서를 잘 생각하면서 혼란을 피할것
+
+타입스크립트:
+
+react leaflet: leaflet의 js 메소드들을 통해 어떤 식으로 동작하는 지 유추할 수 있다
+맵 보여주기 -> setView()
+맵에 타일,마커 등 추가하기 -> addTo()
+마커에 팝업 표시하기 -> openPopup()
+이 이벤트들이 리액트 컴포넌트에서는 어떻게 처리되는지는 문서 혹은 타입을 체크하면 된다 -> 컴포넌트에 props으로 주어지는 구나. 혹은 해당 요소 노드에 기존의 js 방식처럼 이벤트를 추가하면 된다 node.openPopup()
 
 */
 
@@ -54,6 +64,7 @@ const Form = ({ formContents, setWorkouts }: FormPropsType) => {
   const initialState = 'Running';
   const [type, setType] = useState<keyof FormContentsType>('Running'); // Literal type, 여기 상태도 리듀서로 관리해보기!
   const inputRef = useRef<HTMLInputElement[]>([]);
+  const formRef = useRef<HTMLFormElement | null>(null);
   const { position, setPosition } = usePositionContext();
 
   const selectChangeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -100,6 +111,10 @@ const Form = ({ formContents, setWorkouts }: FormPropsType) => {
     setType(initialState);
     initializingInput(...inputRef.current);
     setPosition(null);
+    formRef.current!.style.display = 'none';
+    setTimeout(() => {
+      formRef.current!.style.display = 'grid';
+    }, 1000); // 폼 hidden 스타일에 애니메이션이 들어가있음. 폼이 나타날때 효과주려고 삽입한건데, 삭제될때도 적용됨. 나타날때만 스타일을 적용하는 법은 Css에 없음.. 다른 방법도 있겠지만 이렇게 그냥 작은 트릭으로 처리해도 된다.
   };
 
   useEffect(() => {
@@ -111,6 +126,7 @@ const Form = ({ formContents, setWorkouts }: FormPropsType) => {
     <form
       className={`form ${position !== null ? '' : 'hidden'}`}
       onSubmit={submitHandler}
+      ref={formRef}
     >
       <FormRow label="Type">
         <select

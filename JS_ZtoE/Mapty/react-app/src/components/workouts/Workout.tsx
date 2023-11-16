@@ -1,10 +1,18 @@
+import { useCenterContext } from '../context/CenterContextProvider';
 import { WorkoutType } from '../context/WorkoutContextProvider';
 
-type WorkoutProps = {
+interface WorkoutProps {
   workouts: WorkoutType[];
-};
+}
 
 const Workout = ({ workouts }: WorkoutProps) => {
+  const { setCenter } = useCenterContext();
+  const workoutsClickHandler =
+    (position: WorkoutType['position']) =>
+    (e: React.MouseEvent<HTMLLIElement>) => {
+      setCenter(position);
+    };
+
   return (
     <>
       {workouts.map(data => {
@@ -15,6 +23,7 @@ const Workout = ({ workouts }: WorkoutProps) => {
             key={data.id}
             className={`workout workout--${data.type.toLowerCase()}`}
             data-id={data.id}
+            onClick={workoutsClickHandler(data.position)}
           >
             <h2 className="workout__title">{`${data.type} on ${data.date}`}</h2>
             <div className="workout__details">

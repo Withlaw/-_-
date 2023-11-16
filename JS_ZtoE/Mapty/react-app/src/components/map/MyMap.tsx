@@ -1,6 +1,5 @@
 import { useState } from 'react';
-
-import { Marker, useMap, useMapEvents, Popup } from 'react-leaflet';
+import { Marker, useMapEvents, Popup } from 'react-leaflet';
 
 import {
   PositionType,
@@ -10,7 +9,6 @@ import {
 const MyMap = () => {
   const [marker, setMarker] = useState<PositionType | null>(null);
   const { position, setPosition } = usePositionContext();
-  const map = useMap();
   const event = useMapEvents({
     click: mapE => {
       // console.log(mapE.latlng);

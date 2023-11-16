@@ -5,7 +5,9 @@ import MyMap from './MyMap';
 import L, { LatLngExpression } from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-import MyMarker from './MyMarker';
+import MyMarkers from './MyMarkers';
+import { MAP_ZOOM_LEVEL } from '../../constants';
+import ChangeView from './ChangeView';
 const DefaultIcon = L.icon({
   iconUrl: icon,
   shadowUrl: iconShadow,
@@ -25,13 +27,20 @@ interface CoordsProps {
 
 const Map = ({ coords }: CoordsProps) => {
   return (
-    <MapContainer id="map" center={coords} zoom={15} scrollWheelZoom={true}>
+    <MapContainer
+      id="map"
+      center={coords}
+      zoom={MAP_ZOOM_LEVEL}
+      scrollWheelZoom={true}
+      // whenReady={console.log}
+    >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
       />
       <MyMap />
-      <MyMarker />
+      <MyMarkers />
+      <ChangeView />
     </MapContainer>
   );
 };
