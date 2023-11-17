@@ -1,5 +1,5 @@
 import { useMap } from 'react-leaflet';
-import { MAP_ZOOM_LEVEL } from '../../constants';
+import { MAP_ZOOM_LEVEL } from '../constants';
 import { useCenterContext } from '../context/CenterContextProvider';
 
 const ChangeView = () => {

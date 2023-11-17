@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import FormRow from './FormRow';
 import { FormContentsType } from '../workouts';
-import { initializingInput } from '../../utils';
+import { initializingInput } from '../utils';
 import { WorkoutType } from '../context/WorkoutContextProvider';
-import { Cycling, Running, WorkoutProps } from '../../state';
+import { Cycling, Running, WorkoutProps } from '../states';
 import { usePositionContext } from '../context/PositionContextProvider';
 
 /*

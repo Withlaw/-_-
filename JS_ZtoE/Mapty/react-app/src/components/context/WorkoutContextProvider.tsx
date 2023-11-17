@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
-import { Cycling, Running } from '../../state';
+import { Cycling, Running } from '../states';
 import DataRepository from '../repository/Interface';
 
 const dummyRunning = new Running({

@@ -6,7 +6,7 @@ import L, { LatLngExpression } from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import MyMarkers from './MyMarkers';
-import { MAP_ZOOM_LEVEL } from '../../constants';
+import { MAP_ZOOM_LEVEL } from '../constants';
 import ChangeView from './ChangeView';
 const DefaultIcon = L.icon({
   iconUrl: icon,
