@@ -73,3 +73,15 @@
 - 조나스가 새로운 메소드를 생성하는 과정을 보면, 구현할 기능이 필요한 위치에서 함수를 먼저 호출한 다음 함수를 정의함
 - guard clause : 모던 자바스크립트에서 조건문에 else 문은 잘 안씀
 - zoom level 처럼 여러번 쓰이는 값은 변수로 처리하여 한번에 관리하는 습관! 아주 기본 중의 기본
+
+## 추가적으로 진행할 것
+
+1. Ability to edit a workout\
+2. Ability to delete all workouts\
+3. Ability to sort workouts by a certain field (e.g. distance)\
+4. Re-build Running and Cycling objects coming from Local Storage\
+5. More realistic error and confirmation messages\
+6. Ability to position the map to show all workouts [very hard]\
+7. Ability to draw lines and shapes instead of just points [very hard]\
+8. Geocode location from coordinates (“Run in Faro, Portugal”) [only after asynchronous JavaScript section]\
+9. Display weather data for workout time and place [only after asynchronous JavaScript section]\
