@@ -2,14 +2,17 @@ import { Marker, Popup, useMap } from 'react-leaflet';
 import { useWorkoutContext } from '../context/WorkoutContextProvider';
 
 const MyMarkers = () => {
-  const { workouts } = useWorkoutContext();
+  const { workouts, setWorkouts } = useWorkoutContext();
   const map = useMap();
   // console.log('map', map);
-
-  // )
+  const removePopupHandler = (message: string, id: string) => () => {
+    const answer = window.confirm(message);
+    if (answer) setWorkouts(workouts.filter(el => el.id !== id));
+    else return;
+  };
   return (
     <>
-      {workouts.map((workout, idx) => (
+      {workouts.map((workout, idx, workoutsArr) => (
         <Marker
           key={`item__${idx}`}
           position={workout.position}
@@ -33,6 +36,14 @@ const MyMarkers = () => {
             {workout.type === 'Running' && '🏃‍♂️'}
             {workout.type === 'Cycling' && '🚴‍♀️'}
             {` ${workout.type} on ${workout.date}`}
+            <button
+              onClick={removePopupHandler(
+                `${workout.date}의 ${workout.type} 기록을 제거하시겠습니까?`,
+                workout.id
+              )}
+            >
+              제거
+            </button>
           </Popup>
         </Marker>
       ))}
