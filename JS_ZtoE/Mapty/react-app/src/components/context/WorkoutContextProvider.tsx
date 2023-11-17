@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { Cycling, Running } from '../../state';
+import DataRepository from '../repository/Interface';
 
 const dummyRunning = new Running({
   distance: 5.2,
@@ -32,11 +33,14 @@ export const useWorkoutContext = () => {
   return value;
 };
 
+interface WorkoutContextProviderProps {
+  children: React.ReactNode;
+  dataRepository: DataRepository;
+}
 const WorkoutContextProvider = ({
   children,
-}: {
-  children: React.ReactNode;
-}) => {
+  dataRepository,
+}: WorkoutContextProviderProps) => {
   const [workouts, setWorkouts] = useState<WorkoutType[]>([]);
   const isFirstRendering = useRef(true);
 
@@ -45,13 +49,13 @@ const WorkoutContextProvider = ({
       isFirstRendering.current = false;
       return;
     }
-    window.localStorage.setItem('workouts', JSON.stringify(workouts));
+    dataRepository.save('workouts', JSON.stringify(workouts));
   }, [workouts]); // set data to local storage
 
   useEffect(() => {
     isFirstRendering.current = true; // set item이 첫 렌더링에만 실행되기 위해 이 둘의 이펙트 훅 순서는 항상 set이 get보다 앞서야함. 안그러면 get 이펙트에서 state를 업데이트 하면서 재평가가 일어나 set도 실행됨.
 
-    const data = window.localStorage.getItem('workouts');
+    const data = dataRepository.get('workouts');
     if (data === null) setWorkouts([]);
     else setWorkouts(JSON.parse(data));
   }, []); // get data from local storage

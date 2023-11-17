@@ -12,6 +12,7 @@ import NotItem from './components/layout/NotItem';
 import WorkoutContextProvider from './components/context/WorkoutContextProvider';
 import PositionContextProvider from './components/context/PositionContextProvider';
 import CenterContextProvider from './components/context/CenterContextProvider';
+import LocalDataRepository from './components/repository/LocalDataRepository';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -36,7 +37,7 @@ function App() {
     );
   }, []);
   return (
-    <WorkoutContextProvider>
+    <WorkoutContextProvider dataRepository={LocalDataRepository}>
       <PositionContextProvider>
         <CenterContextProvider>
           <div className="sidebar">
