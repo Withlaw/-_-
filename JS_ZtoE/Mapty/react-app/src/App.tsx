@@ -19,6 +19,7 @@ function App() {
   const [coords, setCoords] = useState<CoordsType | null>(null); // success랑 함께 리듀서로 처리해보기
 
   useEffect(() => {
+    // get current location coordinates
     navigator.geolocation?.getCurrentPosition(
       position => {
         const { latitude, longitude } = position.coords;

@@ -50,7 +50,7 @@ public interface를 이용하여 인스턴스와 인터렉트하는 것도 중�
 react leaflet: leaflet의 js 메소드들을 통해 어떤 식으로 동작하는 지 유추할 수 있다
 맵 보여주기 -> setView()
 맵에 타일,마커 등 추가하기 -> addTo()
-마커에 팝업 표시하기 -> openPopup()
+팝업 추가하기 -> addTo()
 이 이벤트들이 리액트 컴포넌트에서는 어떻게 처리되는지는 문서 혹은 타입을 체크하면 된다 -> 컴포넌트에 props으로 주어지는 구나. 혹은 해당 요소 노드에 기존의 js 방식처럼 이벤트를 추가하면 된다 node.openPopup()
 
 */
@@ -62,7 +62,7 @@ type FormPropsType = {
 
 const Form = ({ formContents, setWorkouts }: FormPropsType) => {
   const initialState = 'Running';
-  const [type, setType] = useState<keyof FormContentsType>('Running'); // Literal type, 여기 상태도 리듀서로 관리해보기!
+  const [type, setType] = useState<keyof FormContentsType>(initialState); // Literal type, 여기 상태도 리듀서로 관리해보기!
   const inputRef = useRef<HTMLInputElement[]>([]);
   const formRef = useRef<HTMLFormElement | null>(null);
   const { position, setPosition } = usePositionContext();

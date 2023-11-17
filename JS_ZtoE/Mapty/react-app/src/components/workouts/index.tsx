@@ -17,7 +17,7 @@ export type FormContentsType = {
 const Workouts = () => {
   const { workouts, setWorkouts } = useWorkoutContext();
 
-  const isData = workouts.length !== 0;
+  const isData = workouts.length !== 0; // 파생된 state
 
   const formContents: FormContentsType = useMemo(() => {
     return {
