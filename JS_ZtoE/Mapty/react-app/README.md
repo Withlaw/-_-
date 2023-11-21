@@ -37,6 +37,12 @@
 - state의 초깃값을 null로 초기화하는 경우가 많기 때문에 null이 아님을 나타내는 `!` 타입 연산자도 자주 사용함.
 - 배열에 유니언 타입 지정 방법: (string | number)[]
 
+### `general components`
+
+- `Card Wrapper 컴포넌트`: 카드 모양의 스타일이 적용된 headless ui(?)
+- `Loading spinner 컴포넌트`
+- `No Item 컴포넌트`
+
 ## 3. API
 
 ### `Geolocation`
