@@ -1,7 +1,16 @@
 import logo from "@/assets/images/logo.png";
 import icons from "@/assets/icons/icons.svg";
+import { useEffect } from "react";
+import { API_KEY, API_URL } from "@/constants";
 
 const Header = () => {
+  useEffect(() => {
+    fetch(API_URL + `recipes?search=rice&key=${API_KEY}`)
+      .then(res => res.json())
+      .then(data => {
+        console.log("api test: ", data);
+      });
+  }, []);
   return (
     <header className="header">
       <img src={logo} alt="Logo" className="header__logo" />
