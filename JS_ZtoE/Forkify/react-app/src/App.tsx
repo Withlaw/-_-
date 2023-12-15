@@ -5,8 +5,6 @@ import {
   createBrowserRouter,
 } from "react-router-dom";
 
-import "@/sass/main.scss";
-
 import Layout from "@/components/Layout";
 
 const routes: RouteObject[] = [
