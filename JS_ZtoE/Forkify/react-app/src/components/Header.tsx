@@ -1,9 +1,9 @@
 import logo from "@/assets/images/logo.png";
 import icons from "@/assets/icons/icons.svg";
 import { useEffect } from "react";
-import { API_KEY, API_BASE_URL } from "@/constants";
+import { API_KEY, API_BASE_URL } from "@/utils/constants";
 import Navigation, { NavigationItemType } from "@/components/Nav";
-import RecipeSearch from "@/components/Search";
+import RecipeSearch from "@/components/search/Search";
 
 const Header = () => {
   // useEffect(() => {
