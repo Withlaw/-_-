@@ -1,3 +1,6 @@
+import { axiosInstance } from "@/adapters/axios";
+import HttpClient from "@/adapters/httpClient";
+import { API_BASE_URL } from "@/utils/constants";
 import React, { useRef, useState } from "react";
 
 const useSearch = () => {
