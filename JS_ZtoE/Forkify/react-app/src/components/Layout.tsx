@@ -1,6 +1,6 @@
 import "@/sass/main.scss";
 import Header from "@/components/Header";
-import RecipeSearchResult from "@/components/Result";
+import RecipeSearchResult from "@/components/search/Result";
 
 const Layout = () => {
   return (
