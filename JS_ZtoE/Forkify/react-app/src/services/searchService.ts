@@ -1,4 +1,4 @@
-import { Fetchable } from "@/adapters/httpClient";
+import { Fetchable } from "@/adapters/api/httpClient";
 
 interface Searchable {
   search<T>(query: string): Promise<Response | T>;
