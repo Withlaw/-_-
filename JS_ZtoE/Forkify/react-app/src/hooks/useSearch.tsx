@@ -1,8 +1,9 @@
 import { axiosInstance } from "@/adapters/api/axios";
-import { HttpClientAxios, HttpClientFetch } from "@/adapters/api/httpClient";
+import { HttpClientAxios, HttpClientFetch } from "@/adapters/api";
 import SearchService from "@/services/searchService";
 import { API_BASE_URL, API_KEY } from "@/utils/constants";
 import React, { useRef, useState } from "react";
+import { RecipesType } from "@/model/search";
 
 const httpClient = new HttpClientAxios(API_BASE_URL, axiosInstance);
 // const httpClientf = new HttpClientFetch(API_BASE_URL);
@@ -19,9 +20,9 @@ const useSearch = () => {
 
     const { value } = searchElementRefTarget.current as HTMLInputElement;
 
-    const data = await searchService.search(value);
+    const { recipes } = await searchService.search<RecipesType>(value);
 
-    console.log("search res data: ", data);
+    console.log("search res data: ", recipes);
 
     // setSearchTerm(value);
   };

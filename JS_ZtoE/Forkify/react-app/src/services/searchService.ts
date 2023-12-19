@@ -1,4 +1,8 @@
-import { Fetchable } from "@/adapters/api/httpClient";
+// 도메인 로직
+// 데이터 변환 등
+
+import { Fetchable, HttpClientAxios } from "@/adapters/api";
+import { Recipe } from "@/model/search";
 
 interface Searchable {
   search<T>(query: string): Promise<Response | T>;
@@ -16,17 +20,16 @@ export default class SearchService implements Searchable {
   }
 
   async search<T>(query: string) {
-    try {
-      const res = await this.httpClient.get(
-        `?search=${query}$key=${this.apiKey}`
-      );
+    const res = await this.httpClient.get<T>(
+      `?sear1ch=${query}$key=${this.apiKey}`
+    );
 
-      // console.log("res: ", res);
-      const { data } = res;
-      return data;
-    } catch (error) {
-      console.log(error);
-    }
+    // console.log("res: ", res);
+    const {
+      data: { recipes },
+    } = res;
+
+    return recipes.map((recipe: Recipe) => new Recipe(recipe));
   }
 
   async load<T>(id: string) {
