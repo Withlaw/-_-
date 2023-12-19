@@ -8,7 +8,7 @@ interface Searchable {
 
 export default class SearchService implements Searchable {
   private readonly apiKey: string;
-  private httpClient: Fetchable;
+  private readonly httpClient: Fetchable;
 
   constructor(httpClient: Fetchable, apiKey: string) {
     this.httpClient = httpClient;
@@ -16,10 +16,17 @@ export default class SearchService implements Searchable {
   }
 
   async search<T>(query: string) {
-    const res = await this.httpClient.get(
-      `?search=${query}$key=${this.apiKey}`
-    );
-    return res.json() as T;
+    try {
+      const res = await this.httpClient.get(
+        `?search=${query}$key=${this.apiKey}`
+      );
+
+      // console.log("res: ", res);
+      const { data } = res;
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async load<T>(id: string) {
@@ -27,13 +34,14 @@ export default class SearchService implements Searchable {
 
     // 에러 핸들링
 
-    return res.json() as T;
+    return (await res.json()) as T;
   }
+
   async create<V>(data: V) {
     const res = await this.httpClient.post(`?key=${this.apiKey}`, data);
 
     // 에러 핸들링
 
-    return res.json() as V;
+    return (await res.json()) as V;
   }
 }

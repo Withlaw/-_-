@@ -4,8 +4,7 @@ import useSearch from "@/hooks/useSearch";
 type RecipeSearchType = {};
 
 const RecipeSearch = () => {
-  const { searchElementRefTarget, searchTerm, handleSearchSubmit } =
-    useSearch();
+  const { searchElementRefTarget, handleSearchSubmit } = useSearch();
 
   return (
     <form className="search" onSubmit={handleSearchSubmit}>
