@@ -1,7 +1,13 @@
 import "@/sass/main.scss";
 
 import Header from "@/components/header";
-import { Outlet } from "react-router-dom";
+import {
+  Outlet,
+  redirect,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import RecipeSearchForm from "@/features/recipe/recipe-search/search-form";
 import Navigation, { NavigationItemType } from "@/components/nav";
 import RecipeProvider from "@/contexts/recipe/search-provider";
@@ -10,6 +16,7 @@ import { HttpClientAxios } from "@/adapters/api/http-client";
 import { API_BASE_URL, API_KEY } from "@/constants";
 import { axiosInstance } from "@/adapters/api/axios";
 import RecipeService from "@/services/searchService";
+import { useEffect } from "react";
 
 const navList: NavigationItemType[] = [
   {
@@ -26,6 +33,14 @@ const httpClient = new HttpClientAxios(API_BASE_URL, axiosInstance);
 const searchService = new RecipeService(httpClient, API_KEY);
 
 const SearchLayout = () => {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (pathname !== "/") return;
+    navigate("recipe");
+  }, []);
+
   return (
     <SearchProvider searchService={searchService}>
       <RecipeProvider>

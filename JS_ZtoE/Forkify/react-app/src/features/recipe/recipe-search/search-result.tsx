@@ -1,15 +1,19 @@
+import LoadingSpinner from "@/components/loading-spinner";
 import { useRecipeContext } from "@/contexts/recipe/search-provider";
+import { useSearchContext } from "@/contexts/recipe/search-service-provider";
 import RecipeItemPreview from "@/features/recipe/recipe-search/search-item-preview";
 
 const RecipeSearchResult = () => {
   const { recipes } = useRecipeContext();
+  const { isLoading } = useSearchContext();
 
   const noItem = !recipes.length;
 
   return (
     <div className="search-results">
       <ul className="results">
-        {noItem && <p>no item...</p>}
+        {isLoading && <LoadingSpinner />}
+        {!isLoading && noItem && <p>no item...</p>}
         {!noItem &&
           recipes.map(recipe => (
             <RecipeItemPreview key={recipe.id} recipe={recipe} />

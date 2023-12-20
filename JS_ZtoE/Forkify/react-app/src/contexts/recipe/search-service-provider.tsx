@@ -11,12 +11,16 @@ import React, {
   useState,
 } from "react";
 
-type SearchContextProps = {
-  recipes: Recipe[];
-  updateRecipes(data: Recipe[]): void;
+// interface SearchContextProps extends RecipeServiceI {
+//   isLoading: boolean;
+//   loading: (value: boolean) => void;
+// }
+type SearchContextProps = RecipeServiceI & {
+  isLoading: boolean;
+  loading: (value: boolean) => void;
 };
 
-const SearchContext = createContext<RecipeServiceI | null>(null);
+const SearchContext = createContext<SearchContextProps | null>(null);
 
 export const useSearchContext = () => {
   const value = useContext(SearchContext);
@@ -32,13 +36,20 @@ const SearchProvider = ({
   children: React.ReactNode;
   searchService: RecipeServiceI;
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  const loading = useCallback((value: boolean) => {
+    setIsLoading(value);
+  }, []);
+
   const search = useCallback(
     () => searchService.search.bind(searchService),
     []
   )();
 
   return (
-    <SearchContext.Provider value={{ search }}>
+    <SearchContext.Provider value={{ search, isLoading, loading }}>
       {children}
     </SearchContext.Provider>
   );

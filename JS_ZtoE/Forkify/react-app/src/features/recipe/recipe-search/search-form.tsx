@@ -8,16 +8,18 @@ import { Recipe } from "@/features/recipe/model";
 const RecipeSearchForm = () => {
   const searchElementRefTarget = useRef<HTMLInputElement | null>(null);
   const { updateRecipes } = useRecipeContext();
-  const { search } = useSearchContext();
+  const { search, loading } = useSearchContext();
 
   const handleSearchSubmit = async (
     event: React.FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
+    loading(true);
 
     const { value } = searchElementRefTarget.current as HTMLInputElement;
 
     const recipes = await search<Recipe[]>(value);
+    loading(false);
     updateRecipes(recipes);
   };
 
