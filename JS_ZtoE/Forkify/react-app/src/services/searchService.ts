@@ -2,11 +2,16 @@
 // 데이터 변환 등
 
 import { Fetchable, HttpClientAxios } from "@/adapters/api/http-client";
-import { Recipe } from "@/features/recipe/model";
+import {
+  Recipe,
+  RecipeDetail,
+  RecipeDetailData,
+} from "@/features/recipe/model";
 
 export interface RecipeServiceI {
   search<T>(query: string): Promise<T>;
-  // load<T>(id: string): Promise<Response | T>;
+  load<T>(id: string): Promise<T>;
+  // load?<T>(id: string): Promise<T>;
   // create<T>(data: T): Promise<Response | T>;
 }
 // SearchSerive -> RecipeService
@@ -30,9 +35,20 @@ export default class RecipeService implements RecipeServiceI {
     //   data: { recipes },
     // } = res;
 
+    // const recipes: Recipe[] = res.data.recipes;
     const { recipes } = res.data;
     // domain: data transform
+    // return recipes.map(recipe => new Recipe(recipe));
     return recipes.map((recipe: Recipe) => new Recipe(recipe));
+  }
+
+  async load<T>(id: string) {
+    const res = await this.httpClient.get<T>(`/${id}`);
+
+    // const recipe: RecipeDetail = res.data.recipe;
+    // const recipe: RecipeDetail = new RecipeDetail(res.data.recipe);
+
+    return res.data;
   }
 
   // async search<T>(query: string) {

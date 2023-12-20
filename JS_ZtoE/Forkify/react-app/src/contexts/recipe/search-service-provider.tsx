@@ -48,8 +48,10 @@ const SearchProvider = ({
     []
   )();
 
+  const load = useCallback(() => searchService.load?.bind(searchService), [])();
+
   return (
-    <SearchContext.Provider value={{ search, isLoading, loading }}>
+    <SearchContext.Provider value={{ search, load, isLoading, loading }}>
       {children}
     </SearchContext.Provider>
   );

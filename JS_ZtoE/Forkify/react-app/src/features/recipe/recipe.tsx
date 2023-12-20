@@ -1,10 +1,36 @@
+import { useSearchContext } from "@/contexts/recipe/search-service-provider";
+import {
+  RecipeDetail,
+  RecipeDetailData,
+  RecipeDetailDataRes,
+} from "@/features/recipe/model";
 import RecipeItemDetail from "@/features/recipe/recipe-search/\bsearch-item-detail";
-import { LoaderFunction, LoaderFunctionArgs } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {
+  LoaderFunction,
+  LoaderFunctionArgs,
+  useParams,
+} from "react-router-dom";
 
 const RecipeContents = () => {
+  const { load } = useSearchContext();
+  const { recipeId } = useParams();
+  const [data, setData] = useState<RecipeDetail | null>(null);
+
+  useEffect(() => {
+    if (!recipeId) return;
+    const loadRecipe = async () => {
+      const { recipe } = await load<RecipeDetailDataRes>(recipeId);
+      const transformRecipe = new RecipeDetail(recipe);
+      setData(transformRecipe);
+    };
+
+    loadRecipe();
+  }, [recipeId]);
+
   return (
     <>
-      <RecipeItemDetail />
+      {data && <RecipeItemDetail data={data} />}
       {/* <div className="message">
         <div>
           <svg>
@@ -34,6 +60,7 @@ const RecipeContents = () => {
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { recipeId } = params;
+  console.log("recipeId: ", recipeId);
   return null;
 };
 
