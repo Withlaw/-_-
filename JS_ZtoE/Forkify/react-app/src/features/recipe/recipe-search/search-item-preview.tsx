@@ -5,7 +5,7 @@ const RecipeItemPreview = ({ recipe }: { recipe: Recipe }) => {
   return (
     <li className="preview">
       <NavLink
-        to={""}
+        to={recipe.id}
         className={({ isActive }) =>
           isActive ? "preview__link preview__link--active" : "preview__link"
         }

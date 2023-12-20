@@ -7,12 +7,27 @@ import {
 
 import RecipePage from "@/pages/recipe-page";
 import SearchLayout from "@/components/layout";
+import RecipeContents, {
+  loader as recipeDetailLoader,
+} from "@/features/recipe/recipe";
 
 const routes: RouteObject[] = [
   {
     path: "/",
     element: <SearchLayout />,
-    children: [{ path: "recipe", element: <RecipePage /> }],
+    children: [
+      {
+        path: "recipe",
+        element: <RecipePage />,
+        children: [
+          {
+            path: ":recipeId",
+            element: <RecipeContents />,
+            loader: recipeDetailLoader,
+          },
+        ],
+      },
+    ],
   },
 ];
 

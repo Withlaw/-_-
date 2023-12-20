@@ -1,6 +1,6 @@
 import icons from "@/assets/icons/icons.svg";
 
-const Message = ({ message = "error ouccured" }: { message: string }) => {
+const Message = ({ message = "메세지를 입력하세요" }: { message: string }) => {
   return (
     <div className="message">
       <div>
@@ -8,7 +8,7 @@ const Message = ({ message = "error ouccured" }: { message: string }) => {
           <use href={`${icons}#icon-smile`}></use>
         </svg>
       </div>
-      <p>${message}</p>
+      <p>{message}</p>
     </div>
   );
 };
