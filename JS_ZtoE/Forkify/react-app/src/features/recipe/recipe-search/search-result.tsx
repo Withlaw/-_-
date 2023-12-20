@@ -1,8 +1,8 @@
-import { useRecipeSearchContext } from "@/contexts/recipe/search-provider";
+import { useRecipeContext } from "@/contexts/recipe/search-provider";
 import RecipeItemPreview from "@/features/recipe/recipe-search/search-item-preview";
 
 const RecipeSearchResult = () => {
-  const { recipes } = useRecipeSearchContext();
+  const { recipes } = useRecipeContext();
 
   const noItem = !recipes.length;
 

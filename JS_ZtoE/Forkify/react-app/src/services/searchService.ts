@@ -5,7 +5,7 @@ import { Fetchable, HttpClientAxios } from "@/adapters/api/http-client";
 import { Recipe } from "@/features/recipe/model";
 
 export interface RecipeServiceI {
-  search<T>(query: string): Promise<Response | T>;
+  search<T>(query: string): Promise<T>;
   // load<T>(id: string): Promise<Response | T>;
   // create<T>(data: T): Promise<Response | T>;
 }

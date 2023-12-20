@@ -1,31 +1,31 @@
 import { Recipe } from "@/features/recipe/model";
 import React, { createContext, useCallback, useContext, useState } from "react";
 
-type SearchContextProps = {
+type RecipeContextProps = {
   recipes: Recipe[];
   updateRecipes(data: Recipe[]): void;
 };
 
-const RecipeSearchContext = createContext<SearchContextProps | null>(null);
+const RecipeContext = createContext<RecipeContextProps | null>(null);
 
-export const useRecipeSearchContext = () => {
-  const value = useContext(RecipeSearchContext);
+export const useRecipeContext = () => {
+  const value = useContext(RecipeContext);
   if (!value)
     throw new Error("useSearchContext should be used within ThemeProvider");
   return value;
 };
 
-const RecipeSearchProvider = ({ children }: { children: React.ReactNode }) => {
+const RecipeProvider = ({ children }: { children: React.ReactNode }) => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
 
   const updateRecipes = useCallback((data: Recipe[]) => {
     setRecipes(data);
   }, []);
   return (
-    <RecipeSearchContext.Provider value={{ recipes, updateRecipes }}>
+    <RecipeContext.Provider value={{ recipes, updateRecipes }}>
       {children}
-    </RecipeSearchContext.Provider>
+    </RecipeContext.Provider>
   );
 };
 
-export default RecipeSearchProvider;
+export default RecipeProvider;
