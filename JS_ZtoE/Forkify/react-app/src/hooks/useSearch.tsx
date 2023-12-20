@@ -1,9 +1,9 @@
 import { axiosInstance } from "@/adapters/api/axios";
-import { HttpClientAxios, HttpClientFetch } from "@/adapters/api";
+import { HttpClientAxios, HttpClientFetch } from "@/adapters/api/http-client";
 import RecipeService from "@/services/searchService";
-import { API_BASE_URL, API_KEY } from "@/utils/constants";
+import { API_BASE_URL, API_KEY } from "@/constants";
 import React, { useRef, useState } from "react";
-import { Recipe, RecipesType } from "@/features/recipe/recipe";
+import { Recipe, RecipesType } from "@/features/recipe/model";
 
 const httpClient = new HttpClientAxios(API_BASE_URL, axiosInstance);
 const searchService = new RecipeService(httpClient, API_KEY);

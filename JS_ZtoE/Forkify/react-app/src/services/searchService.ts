@@ -1,8 +1,8 @@
 // 도메인 로직
 // 데이터 변환 등
 
-import { Fetchable, HttpClientAxios } from "@/adapters/api";
-import { Recipe } from "@/features/recipe/recipe";
+import { Fetchable, HttpClientAxios } from "@/adapters/api/http-client";
+import { Recipe } from "@/features/recipe/model";
 
 export interface RecipeServiceI {
   search<T>(query: string): Promise<Response | T>;

@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "@/utils/constants";
+import { API_BASE_URL } from "@/constants";
 import axios from "axios";
 
 const config = {
