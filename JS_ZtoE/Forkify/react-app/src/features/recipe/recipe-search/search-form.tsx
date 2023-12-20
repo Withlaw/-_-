@@ -14,10 +14,13 @@ const RecipeSearchForm = () => {
     event: React.FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
-    loading(true);
 
     const { value } = searchElementRefTarget.current as HTMLInputElement;
 
+    if (!value.trim()) return;
+
+    loading(true);
+    // try/catch로 에러핸들링 나중에 추가...
     const recipes = await search<Recipe[]>(value);
     loading(false);
     updateRecipes(recipes);
