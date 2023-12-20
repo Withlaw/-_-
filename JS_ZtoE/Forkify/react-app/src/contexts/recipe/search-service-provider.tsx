@@ -21,7 +21,7 @@ const SearchContext = createContext<RecipeServiceI | null>(null);
 export const useSearchContext = () => {
   const value = useContext(SearchContext);
   if (!value)
-    throw new Error("useSearchContext should be used within ThemeProvider");
+    throw new Error("useSearchContext should be used within SearchProvider");
   return value;
 };
 

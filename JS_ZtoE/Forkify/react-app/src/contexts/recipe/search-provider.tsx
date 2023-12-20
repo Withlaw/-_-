@@ -11,7 +11,7 @@ const RecipeContext = createContext<RecipeContextProps | null>(null);
 export const useRecipeContext = () => {
   const value = useContext(RecipeContext);
   if (!value)
-    throw new Error("useSearchContext should be used within ThemeProvider");
+    throw new Error("useRecipeContext should be used within RecipeProvider");
   return value;
 };
 
