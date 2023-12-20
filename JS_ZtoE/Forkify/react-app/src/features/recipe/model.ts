@@ -10,14 +10,14 @@ export type RecipesType = {
   recipes: RecipeData[];
 };
 
-interface RecipeType {
+export interface RecipeI {
   readonly id: string;
   readonly imageUrl: string;
   readonly publisher: string;
   readonly title: string;
 }
 
-export class Recipe implements RecipeType {
+export class Recipe implements RecipeI {
   id: string;
   imageUrl: string;
   publisher: string;

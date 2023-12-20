@@ -4,6 +4,7 @@ import RecipeService from "@/services/searchService";
 import { API_BASE_URL, API_KEY } from "@/constants";
 import React, { useRef, useState } from "react";
 import { Recipe, RecipesType } from "@/features/recipe/model";
+import { useRecipeSearchContext } from "@/contexts/recipe/search-provider";
 
 const httpClient = new HttpClientAxios(API_BASE_URL, axiosInstance);
 const searchService = new RecipeService(httpClient, API_KEY);
@@ -12,6 +13,8 @@ const searchService = new RecipeService(httpClient, API_KEY);
 const useSearch = () => {
   // const [searchTerm, setSearchTerm] = useState<string>("");
   const searchElementRefTarget = useRef<HTMLInputElement | null>(null);
+
+  const { updateRecipes } = useRecipeSearchContext();
 
   const handleSearchSubmit = async (
     event: React.FormEvent<HTMLFormElement>
@@ -23,6 +26,7 @@ const useSearch = () => {
     const recipes = await searchService.search<Recipe[]>(value);
     console.log("search res data: ", recipes);
 
+    updateRecipes(recipes);
     // setSearchTerm(value);
   };
 

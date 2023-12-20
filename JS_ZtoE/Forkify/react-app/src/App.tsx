@@ -6,12 +6,12 @@ import {
 } from "react-router-dom";
 
 import RecipePage from "@/pages/recipe-page";
-import Layout from "@/components/layout";
+import SearchLayout from "@/components/layout";
 
 const routes: RouteObject[] = [
   {
     path: "/",
-    element: <Layout />,
+    element: <SearchLayout />,
     children: [{ path: "recipe", element: <RecipePage /> }],
   },
 ];

@@ -1,23 +1,19 @@
+import { useRecipeSearchContext } from "@/contexts/recipe/search-provider";
+import RecipeItemPreview from "@/features/recipe/recipe-search/search-item-preview";
+
 const RecipeSearchResult = () => {
+  const { recipes } = useRecipeSearchContext();
+
+  const noItem = !recipes.length;
+
   return (
     <div className="search-results">
       <ul className="results">
-        <li className="preview">
-          <a className="preview__link preview__link--active" href="#23456">
-            <figure className="preview__fig">
-              <img src="src/img/test-1.jpg" alt="Test" />
-            </figure>
-            <div className="preview__data">
-              <h4 className="preview__title">Pasta with Tomato Cream ...</h4>
-              <p className="preview__publisher">The Pioneer Woman</p>
-              <div className="preview__user-generated">
-                <svg>
-                  <use href="src/img/icons.svg#icon-user"></use>
-                </svg>
-              </div>
-            </div>
-          </a>
-        </li>
+        {noItem && <p>no item...</p>}
+        {!noItem &&
+          recipes.map(recipe => (
+            <RecipeItemPreview key={recipe.id} recipe={recipe} />
+          ))}
       </ul>
 
       <div className="pagination"></div>

@@ -4,6 +4,7 @@ import Header from "@/components/header";
 import { Outlet } from "react-router-dom";
 import RecipeSearchForm from "@/features/recipe/recipe-search/search-form";
 import Navigation, { NavigationItemType } from "@/components/nav";
+import RecipeSearchProvider from "@/contexts/recipe/search-provider";
 
 const navList: NavigationItemType[] = [
   {
@@ -16,20 +17,22 @@ const navList: NavigationItemType[] = [
   },
 ];
 
-const Layout = () => {
+const SearchLayout = () => {
   return (
-    <div className="container">
-      <Header>
-        <RecipeSearchForm />
-        <Navigation>
-          {navList.map((nav, idx) => (
-            <Navigation.Item key={idx} {...nav} />
-          ))}
-        </Navigation>
-      </Header>
-      <Outlet />
-    </div>
+    <RecipeSearchProvider>
+      <div className="container">
+        <Header>
+          <RecipeSearchForm />
+          <Navigation>
+            {navList.map((nav, idx) => (
+              <Navigation.Item key={idx} {...nav} />
+            ))}
+          </Navigation>
+        </Header>
+        <Outlet />
+      </div>
+    </RecipeSearchProvider>
   );
 };
 
-export default Layout;
+export default SearchLayout;
