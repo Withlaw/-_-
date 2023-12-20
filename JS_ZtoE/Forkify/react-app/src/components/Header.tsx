@@ -7,7 +7,7 @@ import RecipeSearch from "@/components/search/Search";
 
 const Header = () => {
   // useEffect(() => {
-  //   fetch(API_BASE_URL + `recipes?search=rice&key=${API_KEY}`)
+  //   fetch(API_BASE_URL + `?search=rice&key=${API_KEY}`)
   //     .then(res => res.json())
   //     .then(data => {
   //       console.log("api test: ", data);

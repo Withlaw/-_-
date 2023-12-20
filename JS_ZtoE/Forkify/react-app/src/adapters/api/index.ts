@@ -16,13 +16,20 @@
   ): Promise<R>;
   */
 
-import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import {
+  AxiosError,
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+} from "axios";
 
 export interface Fetchable {
   // fetch(endpoint: string, config?: RequestInit): Promise<Response>;
   // get<T = any, V = any>(url: string, config?: T): Promise<V>;
-  get<T = any, V = any>(url: string, config?: T): any;
-  post<V = any, T = any>(url: string, data?: V, config?: T): any;
+  // get<T = any, V = any, D = any>(url: string, config?: D): Promise<V>;
+  get<T = any, D = any>(url: string, config?: D): Promise<T | any>;
+  // get(url: string, config?: any): any;
+  // post<V = any, T = any>(url: string, data?: V, config?: T): any;
 }
 /*
   export default class HttpClient<T> implements Fetchable {
@@ -78,12 +85,19 @@ export class HttpClientFetch implements Fetchable {
     });
   }
 
-  async get<T = any>(endpoint: string) {
+  async get<T, V, D>(endpoint: string, config?: D) {
     const res = await this.fetch(endpoint);
     // if(!res.ok) throw~
 
     return await res.json();
   }
+
+  // async get<T = any>(endpoint: string) {
+  //   const res = await this.fetch(endpoint);
+  //   // if(!res.ok) throw~
+
+  //   return await res.json();
+  // }
 
   async post<V = any>(endpoint: string, data?: V) {
     const res = await this.fetch(endpoint, {
@@ -105,24 +119,38 @@ export class HttpClientAxios implements Fetchable {
     this.baseURL = baseURL;
     this.fetcher = fetcher;
   }
+  // http request 호출
+  // fetch 시나리오
+  // 1. 성공
+  // 2. 실패 -> 네트워크 요청/응답 관련 에러 처리. <타입스크립트 처리 빡셈..>
 
   // async get<T, V>(endpoint: string, config?: T): Promise<V> {
-  async get<T, V>(endpoint: string, config?: T) {
+  async get<T, D = AxiosRequestConfig>(
+    endpoint: string,
+    config?: D
+  ): Promise<any> {
     try {
-      const res = await this.fetcher.get<V>(endpoint);
-      // console.log("http res: ", res);
+      const res = await this.fetcher.get<T>(this.baseURL + endpoint);
       if (res.status !== 200) throw new Error("http response failed");
 
       const { data } = res;
       return data;
-    } catch (err) {
-      console.error(err);
-      return { data: { recipes: [] } };
+    } catch (error) {
+      const errorResponse = (error as AxiosError).response;
+      console.error(errorResponse);
+      if (errorResponse) {
+        return {
+          data: [],
+          message: (errorResponse.data as any).message,
+        };
+      }
     }
-    // http request 호출
-    // fetch 시나리오
-    // 1. 성공
-    // 2. 실패 -> 네트워크 요청/응답 관련 에러 처리.
+    // const { response } = err as AxiosError;
+    // if (response) {
+    //   throw { status: response.status, data: response.data };
+    // }
+
+    // return { data: { recipes: [] } };
   }
 
   async post<V = any>(endpoint: string, payload?: V) {

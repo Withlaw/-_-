@@ -1,10 +1,29 @@
 import icons from "@/assets/icons/icons.svg";
 import useSearch from "@/hooks/useSearch";
+import { useSearchParams } from "react-router-dom";
 
 type RecipeSearchType = {};
 
 const RecipeSearch = () => {
   const { searchElementRefTarget, handleSearchSubmit } = useSearch();
+
+  // const [searchParam, setSearchParam] = useSearchParams();
+  // const submitHandler   = async (
+  //   event: React.FormEvent<HTMLFormElement>
+  // ) => {
+  //   event.preventDefault();
+  //   const { value } = searchElementRefTarget.current as HTMLInputElement;
+  // };
+
+  // <form
+  //   className="search"
+  //   onSubmit={e => {
+  //     e.preventDefault();
+  //     setSearchParam({
+  //       search: searchElementRefTarget.current?.value as string,
+  //     });
+  //   }}
+  // >
 
   return (
     <form className="search" onSubmit={handleSearchSubmit}>
