@@ -1,11 +1,13 @@
 import logo from "@/assets/images/logo.png";
 import icons from "@/assets/icons/icons.svg";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { API_KEY, API_BASE_URL } from "@/utils/constants";
-import Navigation, { NavigationItemType } from "@/components/Nav";
-import RecipeSearch from "@/components/search/Search";
+import Navigation, { NavigationItemType } from "@/components/nav";
+import RecipeSearch from "@/features/recipe/recipe-search/search-form";
 
-const Header = () => {
+export type HeaderProps = { children?: React.ReactNode };
+
+const Header = ({ children }: HeaderProps) => {
   // useEffect(() => {
   //   fetch(API_BASE_URL + `?search=rice&key=${API_KEY}`)
   //     .then(res => res.json())
@@ -14,26 +16,10 @@ const Header = () => {
   //     });
   // }, []);
 
-  const navList: NavigationItemType[] = [
-    {
-      name: "Add recipe",
-      iconHref: "icon-edit",
-    },
-    {
-      name: "Bookmarks",
-      iconHref: "icon-bookmark",
-    },
-  ];
-
   return (
     <header className="header">
       <img src={logo} alt="Logo" className="header__logo" />
-      <RecipeSearch />
-      <Navigation>
-        {navList.map((nav, idx) => (
-          <Navigation.Item key={idx} {...nav} />
-        ))}
-      </Navigation>
+      {children}
     </header>
   );
 };

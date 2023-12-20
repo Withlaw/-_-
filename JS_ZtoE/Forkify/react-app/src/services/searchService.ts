@@ -2,7 +2,7 @@
 // 데이터 변환 등
 
 import { Fetchable, HttpClientAxios } from "@/adapters/api";
-import { Recipe } from "@/model/search";
+import { Recipe } from "@/features/recipe/recipe";
 
 export interface RecipeServiceI {
   search<T>(query: string): Promise<Response | T>;

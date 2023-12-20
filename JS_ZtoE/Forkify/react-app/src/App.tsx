@@ -5,13 +5,14 @@ import {
   createBrowserRouter,
 } from "react-router-dom";
 
-import Layout from "@/components/Layout";
+import RecipePage from "@/pages/recipe-page";
+import Layout from "@/components/layout";
 
 const routes: RouteObject[] = [
   {
     path: "/",
     element: <Layout />,
-    children: [{ index: true }],
+    children: [{ index: true }, { path: "recipe", element: <RecipePage /> }],
   },
 ];
 

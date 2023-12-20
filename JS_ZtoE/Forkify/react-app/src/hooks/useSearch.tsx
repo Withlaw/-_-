@@ -3,7 +3,7 @@ import { HttpClientAxios, HttpClientFetch } from "@/adapters/api";
 import RecipeService from "@/services/searchService";
 import { API_BASE_URL, API_KEY } from "@/utils/constants";
 import React, { useRef, useState } from "react";
-import { Recipe, RecipesType } from "@/model/search";
+import { Recipe, RecipesType } from "@/features/recipe/recipe";
 
 const httpClient = new HttpClientAxios(API_BASE_URL, axiosInstance);
 const searchService = new RecipeService(httpClient, API_KEY);

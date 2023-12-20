@@ -1,9 +1,9 @@
 import icons from "@/assets/icons/icons.svg";
 import React from "react";
 
-export type NavigationType = { children?: React.ReactNode };
+export type NavigationProps = { children?: React.ReactNode };
 
-const Navigation = ({ children }: NavigationType) => {
+const Navigation = ({ children }: NavigationProps) => {
   return (
     <nav className="nav">
       <ul className="nav__list">{children}</ul>

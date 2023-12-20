@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router-dom";
 
 type RecipeSearchType = {};
 
-const RecipeSearch = () => {
+const RecipeSearchForm = () => {
   const { searchElementRefTarget, handleSearchSubmit } = useSearch();
 
   // const [searchParam, setSearchParam] = useSearchParams();
@@ -47,7 +47,7 @@ const RecipeSearch = () => {
 const Result = () => {
   return null;
 };
-RecipeSearch.Result = Result;
+RecipeSearchForm.Result = Result;
 
 /*
 const Form = () => {
@@ -72,4 +72,4 @@ const Form = () => {
 RecipeSearch.Form = Form;
 */
 
-export default RecipeSearch;
+export default RecipeSearchForm;
