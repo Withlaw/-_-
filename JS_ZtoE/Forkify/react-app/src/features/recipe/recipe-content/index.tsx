@@ -1,10 +1,11 @@
+import Message from "@/components/message";
 import { useSearchContext } from "@/contexts/recipe/search-service-provider";
 import {
   RecipeDetail,
   RecipeDetailData,
   RecipeDetailDataRes,
 } from "@/features/recipe/model";
-import RecipeItemDetail from "@/features/recipe/recipe-search/\bsearch-item-detail";
+import RecipeItemDetail from "@/features/recipe/recipe-search/search-item-detail";
 import { useEffect, useState } from "react";
 import {
   LoaderFunction,
@@ -12,10 +13,11 @@ import {
   useParams,
 } from "react-router-dom";
 
-const RecipeContents = () => {
+const RecipeContent = () => {
   const { load } = useSearchContext();
   const { recipeId } = useParams();
   const [data, setData] = useState<RecipeDetail | null>(null);
+
   useEffect(() => {
     if (!recipeId) return;
     const loadRecipe = async () => {
@@ -63,4 +65,12 @@ export const loader: LoaderFunction = async ({ params }) => {
   return null;
 };
 
-export default RecipeContents;
+const Default = () => {
+  return (
+    <Message message="Start by searching for a recipe or an ingredient. Have fun!" />
+  );
+};
+
+RecipeContent.Default = Default;
+
+export default RecipeContent;

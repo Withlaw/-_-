@@ -7,9 +7,9 @@ import {
 
 import RecipePage from "@/pages/recipe-page";
 import SearchLayout from "@/components/layout";
-import RecipeContents, {
+import RecipeContent, {
   loader as recipeDetailLoader,
-} from "@/features/recipe/recipe";
+} from "@/features/recipe/recipe-content";
 
 const routes: RouteObject[] = [
   {
@@ -21,8 +21,12 @@ const routes: RouteObject[] = [
         element: <RecipePage />,
         children: [
           {
+            index: true,
+            element: <RecipeContent.Default />,
+          },
+          {
             path: ":recipeId",
-            element: <RecipeContents />,
+            element: <RecipeContent />,
             loader: recipeDetailLoader,
           },
         ],
