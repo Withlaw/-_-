@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import icons from "@/assets/icons/icons.svg";
 import Modal from "@/components/modal";
+import { RecipeFormData, inputDataType } from "@/features/recipe/model";
 
 const AddRecipe = () => {
   const navigate = useNavigate();
@@ -16,8 +17,20 @@ const AddRecipe = () => {
     const target = e.target as HTMLFormElement;
 
     const formData = new FormData(target);
-    const arr = Object.fromEntries(formData);
-    console.log("formData: ", arr);
+    const formDataObj = Object.fromEntries(formData);
+    try {
+      const newRecipe = new RecipeFormData({
+        ...RecipeFormData.extractRecipeData(formDataObj as inputDataType),
+        ingredients: RecipeFormData.extractIngredients(
+          formDataObj as inputDataType
+        ),
+      });
+
+      console.log("formDataObj: ", formDataObj, newRecipe);
+    } catch (err) {
+      alert("ㄷ가시작성");
+      return;
+    }
   };
 
   return (

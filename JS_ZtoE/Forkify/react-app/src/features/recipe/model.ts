@@ -57,18 +57,18 @@ export type RecipeDetailDataRes = {
   recipe: RecipeDetailData;
 };
 
-export interface RecipeDetailI {
-  readonly id?: string;
-  readonly publisher: string;
-  readonly title: string;
-  readonly servings: number;
-  readonly ingredients: IngredientType[];
-  readonly sourceUrl: string;
-  readonly imageUrl: string;
-  readonly cookingTime: number;
-}
+// export interface RecipeDetailI {
+//   readonly id?: string;
+//   readonly publisher: string;
+//   readonly title: string;
+//   readonly servings: number;
+//   readonly ingredients: IngredientType[];
+//   readonly sourceUrl: string;
+//   readonly imageUrl: string;
+//   readonly cookingTime: number;
+// }
 
-export class RecipeDetail implements RecipeDetailI {
+export class RecipeDetail implements RecipeDetailData {
   id?: string;
   publisher: string;
   title: string;
@@ -90,8 +90,11 @@ export class RecipeDetail implements RecipeDetailI {
 }
 
 // new recipe format
+export type inputDataType = {
+  [name: string]: string;
+};
+
 export class RecipeFormData implements RecipeDetailData {
-  id?: string;
   publisher: string;
   title: string;
   servings: number;
@@ -99,20 +102,20 @@ export class RecipeFormData implements RecipeDetailData {
   source_url: string;
   image_url: string;
   cooking_time: number;
-  constructor(data: RecipeDetailI) {
-    this.id = data.id;
+  constructor(data: RecipeDetailData) {
     this.publisher = data.publisher;
     this.title = data.title;
     this.servings = data.servings;
     this.ingredients = data.ingredients;
-    this.source_url = data.sourceUrl;
-    this.image_url = data.imageUrl;
-    this.cooking_time = data.cookingTime;
+    // this.source_url = data.sourceUrl;
+    // this.image_url = data.imageUrl;
+    // this.cooking_time = data.cookingTime;
+    this.source_url = data.sourceUrl || data.source_url || "";
+    this.image_url = data.imageUrl || data.image_url || "";
+    this.cooking_time = data.cookingTime || data.cooking_time || 0;
   }
 
-  static extractIngredients(data: {
-    [name: string]: string;
-  }): IngredientType[] {
+  static extractIngredients(data: inputDataType): IngredientType[] {
     return Object.entries(data)
       .filter(el => el[0].startsWith("ingredient") && el[1] !== "")
       .map(el => {
@@ -130,7 +133,7 @@ export class RecipeFormData implements RecipeDetailData {
         };
       });
   }
-  static extractRecipeData(data: { [name: string]: string }): RecipeData {
+  static extractRecipeData(data: inputDataType): RecipeData {
     // const recipeDataOnlyArr = Object.entries(data).filter(
     //   el => !el[0].startsWith("ingredient")
     // );
