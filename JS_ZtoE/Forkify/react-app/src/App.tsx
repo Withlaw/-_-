@@ -10,6 +10,7 @@ import SearchLayout from "@/components/layout";
 import RecipeContent, {
   loader as recipeDetailLoader,
 } from "@/features/recipe/recipe-content";
+import AddRecipe from "@/features/recipe/recipe-add";
 
 const routes: RouteObject[] = [
   {
@@ -29,6 +30,7 @@ const routes: RouteObject[] = [
             element: <RecipeContent />,
             loader: recipeDetailLoader,
           },
+          { path: "new", element: <AddRecipe /> },
         ],
       },
     ],

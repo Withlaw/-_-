@@ -1,5 +1,6 @@
 import icons from "@/assets/icons/icons.svg";
 import React from "react";
+import { Link } from "react-router-dom";
 
 export type NavigationProps = { children?: React.ReactNode };
 
@@ -20,12 +21,12 @@ export type NavigationItemType = {
 const Item = ({ name, iconHref, route }: NavigationItemType) => {
   return (
     <li className="nav__item">
-      <button className="nav__btn">
+      <Link to={route ?? ""} className="nav__btn">
         <svg className="nav__icon">
           <use href={`${icons}#${iconHref}`}></use>
         </svg>
         <span>{name}</span>
-      </button>
+      </Link>
     </li>
   );
 };

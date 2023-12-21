@@ -47,6 +47,15 @@ body {
   min-height: calc(100vh - 2 * 4vw);
 }
 
+a {
+  text-decoration: none;
+  outline: none;
+}
+ a:hover,
+a:active {
+  text-decoration: none;
+}
+
 .container {
   max-width: 120rem;
   min-height: 117rem;

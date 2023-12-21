@@ -16,6 +16,7 @@ const navList: NavigationItemType[] = [
   {
     name: "Add recipe",
     iconHref: "icon-edit",
+    route: "recipe/new",
   },
   {
     name: "Bookmarks",
@@ -38,7 +39,7 @@ const SearchLayout = () => {
   return (
     <SearchProvider searchService={searchService}>
       <RecipeProvider>
-        <div className="container">
+        <div className="container" id="container">
           <Header>
             <RecipeSearchForm />
             <Navigation>
