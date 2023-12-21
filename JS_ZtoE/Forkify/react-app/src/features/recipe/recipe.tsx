@@ -16,7 +16,6 @@ const RecipeContents = () => {
   const { load } = useSearchContext();
   const { recipeId } = useParams();
   const [data, setData] = useState<RecipeDetail | null>(null);
-
   useEffect(() => {
     if (!recipeId) return;
     const loadRecipe = async () => {
