@@ -2,7 +2,7 @@ import { axiosInstance } from "@/adapters/api/axios";
 import { HttpClientAxios } from "@/adapters/api/http-client";
 import { API_BASE_URL, API_KEY } from "@/constants";
 import { Recipe } from "@/features/recipe/model";
-import RecipeService, { RecipeServiceI } from "@/services/searchService";
+import RecipeService, { RecipeServiceI } from "@/services/recipeService";
 import React, {
   createContext,
   useCallback,
@@ -48,10 +48,20 @@ const SearchProvider = ({
     []
   )();
 
-  const load = useCallback(() => searchService.load?.bind(searchService), [])();
+  const download = useCallback(
+    () => searchService.download?.bind(searchService),
+    []
+  )();
+
+  const upload = useCallback(
+    () => searchService.upload?.bind(searchService),
+    []
+  )();
 
   return (
-    <SearchContext.Provider value={{ search, load, isLoading, loading }}>
+    <SearchContext.Provider
+      value={{ search, download, upload, isLoading, loading }}
+    >
       {children}
     </SearchContext.Provider>
   );

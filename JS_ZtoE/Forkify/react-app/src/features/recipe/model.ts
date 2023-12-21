@@ -150,3 +150,30 @@ export class RecipeFormData implements RecipeDetailData {
     };
   }
 }
+
+// upload res data
+/*
+export interface Data {
+  recipe: Recipe
+}
+
+export interface Recipe {
+  createdAt: string
+  publisher: string
+  title: string
+  servings: number
+  ingredients: Ingredient[]
+  source_url: string
+  image_url: string
+  cooking_time: number
+  key: string
+  id: string
+}
+
+export interface Ingredient {
+  quantity: number
+  unit: string
+  description: string
+}
+
+*/

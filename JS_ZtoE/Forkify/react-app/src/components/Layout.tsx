@@ -9,7 +9,7 @@ import SearchProvider from "@/contexts/recipe/search-service-provider";
 import { HttpClientAxios } from "@/adapters/api/http-client";
 import { API_BASE_URL, API_KEY } from "@/constants";
 import { axiosInstance } from "@/adapters/api/axios";
-import RecipeService from "@/services/searchService";
+import RecipeService from "@/services/recipeService";
 import { useEffect } from "react";
 
 const navList: NavigationItemType[] = [

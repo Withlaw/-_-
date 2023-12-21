@@ -3,15 +3,17 @@ import { useNavigate } from "react-router-dom";
 import icons from "@/assets/icons/icons.svg";
 import Modal from "@/components/modal";
 import { RecipeFormData, inputDataType } from "@/features/recipe/model";
+import { useSearchContext } from "@/contexts/recipe/search-service-provider";
 
 const AddRecipe = () => {
   const navigate = useNavigate();
+  const { upload } = useSearchContext();
 
   const modalCloseHandler = () => {
     navigate("..", { relative: "path" });
   };
 
-  const modalSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const modalSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const target = e.target as HTMLFormElement;
@@ -27,6 +29,10 @@ const AddRecipe = () => {
       });
 
       console.log("formDataObj: ", formDataObj, newRecipe);
+
+      // const data = await upload(newRecipe);
+      // upload 완료.
+      // console.log("form: ", data);
     } catch (err) {
       alert("ㄷ가시작성");
       return;

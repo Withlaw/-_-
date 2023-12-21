@@ -14,14 +14,14 @@ import {
 } from "react-router-dom";
 
 const RecipeContent = () => {
-  const { load } = useSearchContext();
+  const { download } = useSearchContext();
   const { recipeId } = useParams();
   const [data, setData] = useState<RecipeDetail | null>(null);
 
   useEffect(() => {
     if (!recipeId) return;
     const loadRecipe = async () => {
-      const { recipe } = await load<RecipeDetailDataRes>(recipeId);
+      const { recipe } = await download<RecipeDetailDataRes>(recipeId);
       const transformRecipe = new RecipeDetail(recipe);
       setData(transformRecipe);
     };

@@ -28,6 +28,8 @@ export interface Fetchable {
   // get<T = any, V = any>(url: string, config?: T): Promise<V>;
   // get<T = any, V = any, D = any>(url: string, config?: D): Promise<V>;
   get<T = any, D = any>(url: string, config?: D): Promise<T | any>;
+
+  post(url: string, preload?: any): Promise<any>;
   // get(url: string, config?: any): any;
   // post<V = any, T = any>(url: string, data?: V, config?: T): any;
 }
@@ -153,10 +155,14 @@ export class HttpClientAxios implements Fetchable {
     // return { data: { recipes: [] } };
   }
 
-  async post<V = any>(endpoint: string, payload?: V) {
-    const res = await this.fetcher.post(endpoint, payload);
+  async post(endpoint: string, payload?: any) {
+    try {
+      const res = await this.fetcher.post(this.baseURL + endpoint, payload);
 
-    const { data } = res;
-    return data;
+      const { data } = res;
+      return data;
+    } catch (error) {
+      return null;
+    }
   }
 }

@@ -10,7 +10,8 @@ import {
 
 export interface RecipeServiceI {
   search<T>(query: string): Promise<T>;
-  load<T>(id: string): Promise<T>;
+  download<T>(id: string): Promise<T>;
+  upload(data: any): Promise<any>;
   // load?<T>(id: string): Promise<T>;
   // create<T>(data: T): Promise<Response | T>;
 }
@@ -42,11 +43,22 @@ export default class RecipeService implements RecipeServiceI {
     return recipes.map((recipe: Recipe) => new Recipe(recipe));
   }
 
-  async load<T>(id: string) {
+  async download<T>(id: string) {
     const res = await this.httpClient.get<T>(`/${id}`);
 
     // const recipe: RecipeDetail = res.data.recipe;
     // const recipe: RecipeDetail = new RecipeDetail(res.data.recipe);
+
+    return res.data;
+  }
+
+  async upload(data: any): Promise<any> {
+    const res = await this.httpClient.post(
+      `?key=${this.apiKey}`,
+      JSON.stringify(data)
+    );
+
+    console.log("upload res: ", res);
 
     return res.data;
   }
