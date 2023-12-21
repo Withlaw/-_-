@@ -59,16 +59,23 @@ const RecipeContent = () => {
   );
 };
 
-export const loader: LoaderFunction = async ({ params }) => {
-  const { recipeId } = params;
-  console.log("recipeId: ", recipeId);
-  return null;
-};
-
 const Default = () => {
   return (
     <Message message="Start by searching for a recipe or an ingredient. Have fun!" />
   );
+};
+
+export const loader: LoaderFunction = async ({ params }) => {
+  const { recipeId } = params;
+  console.log("loader running recipeId: ", recipeId);
+
+  const b = await new Promise(resolve => {
+    setTimeout(() => {
+      resolve("loader");
+      console.log("loader done.");
+    }, 1000);
+  });
+  return null;
 };
 
 RecipeContent.Default = Default;

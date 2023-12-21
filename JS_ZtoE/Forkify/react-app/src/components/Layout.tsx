@@ -1,13 +1,7 @@
 import "@/sass/main.scss";
 
 import Header from "@/components/header";
-import {
-  Outlet,
-  redirect,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import RecipeSearchForm from "@/features/recipe/recipe-search/search-form";
 import Navigation, { NavigationItemType } from "@/components/nav";
 import RecipeProvider from "@/contexts/recipe/search-provider";

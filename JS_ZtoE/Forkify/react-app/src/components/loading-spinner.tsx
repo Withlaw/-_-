@@ -1,6 +1,7 @@
 import icons from "@/assets/icons/icons.svg";
 
 const LoadingSpinner = () => {
+  // console.log("LoadingSpinner render");
   return (
     <div className="spinner">
       <svg>

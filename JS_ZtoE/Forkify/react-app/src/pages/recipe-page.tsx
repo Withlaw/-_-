@@ -1,12 +1,17 @@
+import LoadingSpinner from "@/components/loading-spinner";
 import RecipeSearchResult from "@/features/recipe/recipe-search/search-result";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLoaderData, useNavigation } from "react-router-dom";
 
 const RecipePage = () => {
+  const { state } = useNavigation();
+  const isLoading = state === "loading";
+
   return (
     <>
       <RecipeSearchResult />
       <div className="recipe">
-        <Outlet />
+        {isLoading && <LoadingSpinner />}
+        {!isLoading && <Outlet />}
       </div>
     </>
   );
