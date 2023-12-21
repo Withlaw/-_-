@@ -8,7 +8,7 @@ const Error = ({ message = "error ouccured" }: { message: string }) => {
           <use href={`${icons}#icon-alert-triangle`}></use>
         </svg>
       </div>
-      <p>${message}</p>
+      <p>{message}</p>
     </div>
   );
 };
