@@ -30,11 +30,26 @@ const AddRecipe = () => {
 
       console.log("formDataObj: ", formDataObj, newRecipe);
 
-      // const data = await upload(newRecipe);
+      /*
+      const res = await fetch(
+        "https://forkify-api.herokuapp.com/api/v2/recipes?key=f4dfabae-a9ea-4c6e-91e0-aa65496662e4",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newRecipe),
+        }
+      );
+      const data = res.json();
+      console.log("form compoleeete: ", data);
+      */
+
+      const data = await upload(JSON.stringify(newRecipe));
       // upload 완료.
       // console.log("form: ", data);
     } catch (err) {
-      alert("ㄷ가시작성");
+      alert("다시작성해주세요.");
       return;
     }
   };

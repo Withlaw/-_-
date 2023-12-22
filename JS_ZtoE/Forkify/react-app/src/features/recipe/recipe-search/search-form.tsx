@@ -3,7 +3,11 @@ import { useSearchParams } from "react-router-dom";
 import icons from "@/assets/icons/icons.svg";
 import { useRecipeContext } from "@/contexts/recipe/search-provider";
 import { useSearchContext } from "@/contexts/recipe/search-service-provider";
-import { Recipe } from "@/features/recipe/model";
+import {
+  Recipe,
+  RecipeDataPreview,
+  RecipeDataPreviewRes,
+} from "@/features/recipe/model";
 
 const RecipeSearchForm = () => {
   const searchElementRefTarget = useRef<HTMLInputElement | null>(null);
@@ -21,9 +25,13 @@ const RecipeSearchForm = () => {
 
     loading(true);
     // try/catch로 에러핸들링 나중에 추가...
-    const recipes = await search<Recipe[]>(value);
+    const { recipes } = await search<RecipeDataPreviewRes>(value);
+
+    // domain: data transform
+    updateRecipes(
+      recipes.map((recipe: RecipeDataPreview) => new Recipe(recipe))
+    );
     loading(false);
-    updateRecipes(recipes);
   };
 
   // const [searchParam, setSearchParam] = useSearchParams();

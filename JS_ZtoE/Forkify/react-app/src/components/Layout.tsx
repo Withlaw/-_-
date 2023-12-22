@@ -6,7 +6,7 @@ import RecipeSearchForm from "@/features/recipe/recipe-search/search-form";
 import Navigation, { NavigationItemType } from "@/components/nav";
 import RecipeProvider from "@/contexts/recipe/search-provider";
 import SearchProvider from "@/contexts/recipe/search-service-provider";
-import { HttpClientAxios } from "@/adapters/api/http-client";
+import { HttpClientAxios, HttpClientFetch } from "@/adapters/api/http-client";
 import { API_BASE_URL, API_KEY } from "@/constants";
 import { axiosInstance } from "@/adapters/api/axios";
 import RecipeService from "@/services/recipeService";
@@ -24,7 +24,8 @@ const navList: NavigationItemType[] = [
   },
 ];
 
-const httpClient = new HttpClientAxios(API_BASE_URL, axiosInstance);
+const httpClient = new HttpClientAxios(axiosInstance);
+// const httpClient = new HttpClientFetch(API_BASE_URL);
 const searchService = new RecipeService(httpClient, API_KEY);
 
 const SearchLayout = () => {

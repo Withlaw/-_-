@@ -22,8 +22,7 @@ const RecipeContent = () => {
     if (!recipeId) return;
     const loadRecipe = async () => {
       const { recipe } = await download<RecipeDetailDataRes>(recipeId);
-      const transformRecipe = new RecipeDetail(recipe);
-      setData(transformRecipe);
+      setData(new RecipeDetail(recipe));
     };
 
     loadRecipe();

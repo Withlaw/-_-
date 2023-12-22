@@ -11,56 +11,68 @@ import {
 export interface RecipeServiceI {
   search<T>(query: string): Promise<T>;
   download<T>(id: string): Promise<T>;
-  upload(data: any): Promise<any>;
-  // load?<T>(id: string): Promise<T>;
+  upload<T = any>(payload?: BodyInit | null): Promise<T | any>;
   // create<T>(data: T): Promise<Response | T>;
 }
 // SearchSerive -> RecipeService
 export default class RecipeService implements RecipeServiceI {
-  private readonly apiKey: string;
   private readonly httpClient: Fetchable;
+  private readonly apiKey?: string;
 
-  constructor(httpClient: Fetchable, apiKey: string) {
+  constructor(httpClient: Fetchable, apiKey?: string) {
     this.httpClient = httpClient;
     this.apiKey = apiKey;
   }
 
-  async search<T>(query: string) {
-    const res = await this.httpClient.get<T>(
-      `?search=${query}$key=${this.apiKey}`
-    );
+  async search<T>(query: string): Promise<T | any> {
+    try {
+      const res = await this.httpClient.get<T>(
+        `?search=${query}$key=${this.apiKey}`
+      );
+      // console.log("service layer: ", res);
 
-    console.log("service layer: ", res);
+      let data = res;
+      if (res?.data) data = res.data;
+      if (res.data?.data) data = res.data.data;
 
-    // const {
-    //   data: { recipes },
-    // } = res;
-
-    // const recipes: Recipe[] = res.data.recipes;
-    const { recipes } = res.data;
-    // domain: data transform
-    // return recipes.map(recipe => new Recipe(recipe));
-    return recipes.map((recipe: Recipe) => new Recipe(recipe));
+      return data;
+    } catch (error) {
+      throw error;
+    }
   }
 
-  async download<T>(id: string) {
-    const res = await this.httpClient.get<T>(`/${id}`);
+  async download<T>(id: string): Promise<T | any> {
+    try {
+      const res = await this.httpClient.get<T>(`/${id}`);
 
-    // const recipe: RecipeDetail = res.data.recipe;
-    // const recipe: RecipeDetail = new RecipeDetail(res.data.recipe);
+      let data = res;
+      if (res?.data) data = res.data;
+      if (res.data?.data) data = res.data.data;
 
-    return res.data;
+      return data;
+    } catch (error) {
+      throw error;
+    }
   }
 
-  async upload(data: any): Promise<any> {
-    const res = await this.httpClient.post(
-      `?key=${this.apiKey}`,
-      JSON.stringify(data)
-    );
+  async upload<T = any>(payload?: BodyInit | null): Promise<T | any> {
+    try {
+      const res = await this.httpClient.post<T>(`?key=${this.apiKey}`, payload);
+      // const res = await this.httpClient.post<BodyInit | null, T>(
+      //   `?key=${this.apiKey}`,
+      //   payload
+      // );
 
-    console.log("upload res: ", res);
+      console.log("upload res: ", res);
 
-    return res.data;
+      let data = res;
+      if (res?.data) data = res.data;
+      if (res.data?.data) data = res.data.data;
+
+      return data;
+    } catch (error) {
+      throw error;
+    }
   }
 
   // async search<T>(query: string) {

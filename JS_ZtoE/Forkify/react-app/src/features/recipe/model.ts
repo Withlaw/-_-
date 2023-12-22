@@ -7,6 +7,10 @@ export type RecipeDataPreview = {
   imageUrl?: string;
 };
 
+export type RecipeDataPreviewRes = {
+  recipes: RecipeDataPreview[];
+};
+
 export interface RecipeI {
   readonly id: string;
   readonly imageUrl: string;
