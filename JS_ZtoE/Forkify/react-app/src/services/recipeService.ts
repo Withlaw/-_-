@@ -14,6 +14,7 @@ export interface RecipeServiceI {
   upload<T = any>(payload?: BodyInit | null): Promise<T | any>;
   // create<T>(data: T): Promise<Response | T>;
 }
+
 // SearchSerive -> RecipeService
 export default class RecipeService implements RecipeServiceI {
   private readonly httpClient: Fetchable;

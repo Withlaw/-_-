@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import icons from "@/assets/icons/icons.svg";
 import Modal from "@/components/modal";
 import { RecipeFormData, inputDataType } from "@/features/recipe/model";
@@ -46,8 +46,10 @@ const AddRecipe = () => {
       */
 
       const data = await upload(JSON.stringify(newRecipe));
+      console.log("form: ", data);
       // upload 완료.
-      // console.log("form: ", data);
+      const { id } = data.recipe;
+      return navigate("/recipe/" + id);
     } catch (err) {
       alert("다시작성해주세요.");
       return;
