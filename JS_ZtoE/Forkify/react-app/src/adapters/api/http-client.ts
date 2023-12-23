@@ -1,20 +1,8 @@
+import Fetchy from "@/adapters/api/interface";
 import { AxiosInstance } from "axios";
 
-/*
-  get<T = any, R = AxiosResponse<T>, D = any>(
-    url: string,
-    config?: AxiosRequestConfig<D>
-  ): Promise<R>;
-  */
-
-export interface Fetchable {
-  get<T = any>(url: string): Promise<T | any>;
-  post<T>(endpoint: string, payload?: BodyInit | null): Promise<T | any>;
-  // post<T, U>(endpoint: string, payload?: U): Promise<T | any>;
-}
-
 // use fetch api
-export class HttpClientFetch implements Fetchable {
+export class HttpClientFetch implements Fetchy {
   private readonly baseURL: string;
 
   constructor(baseURL: string = "") {
@@ -100,7 +88,7 @@ export class HttpClientFetch implements Fetchable {
 }
 
 // use axios
-export class HttpClientAxios implements Fetchable {
+export class HttpClientAxios implements Fetchy {
   // export class HttpClientAxios {
   private readonly baseURL: string;
   private readonly fetcher: AxiosInstance;

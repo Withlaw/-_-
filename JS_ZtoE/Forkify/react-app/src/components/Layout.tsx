@@ -11,6 +11,7 @@ import { API_BASE_URL, API_KEY } from "@/constants";
 import { axiosInstance } from "@/adapters/api/axios";
 import RecipeService from "@/services/recipeService";
 import { useEffect } from "react";
+import AuthButton from "@/features/auth/auth-button";
 
 const navList: NavigationItemType[] = [
   {
@@ -63,6 +64,7 @@ const SearchLayout = () => {
                 <Navigation.Item key={idx} {...nav} />
               ))}
             </Navigation>
+            <AuthButton type="login" />
           </Header>
           <Outlet />
         </div>

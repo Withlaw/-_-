@@ -1,7 +1,8 @@
 // 도메인 로직
 // 데이터 변환 등
 
-import { Fetchable, HttpClientAxios } from "@/adapters/api/http-client";
+import { HttpClientAxios } from "@/adapters/api/http-client";
+import Fetchy from "@/adapters/api/interface";
 import {
   Recipe,
   RecipeDetail,
@@ -17,10 +18,10 @@ export interface RecipeServiceI {
 
 // SearchSerive -> RecipeService
 export default class RecipeService implements RecipeServiceI {
-  private readonly httpClient: Fetchable;
+  private readonly httpClient: Fetchy;
   private readonly apiKey?: string;
 
-  constructor(httpClient: Fetchable, apiKey?: string) {
+  constructor(httpClient: Fetchy, apiKey?: string) {
     this.httpClient = httpClient;
     this.apiKey = apiKey;
   }
