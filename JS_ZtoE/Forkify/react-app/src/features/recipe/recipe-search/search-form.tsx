@@ -7,7 +7,7 @@ import {
   Recipe,
   RecipeDataPreview,
   RecipeDataPreviewRes,
-} from "@/features/recipe/model";
+} from "@/features/recipe/recipe.model";
 
 const RecipeSearchForm = () => {
   const searchElementRefTarget = useRef<HTMLInputElement | null>(null);

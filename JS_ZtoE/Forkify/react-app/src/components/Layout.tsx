@@ -7,11 +7,14 @@ import Navigation, { NavigationItemType } from "@/components/nav";
 import RecipeProvider from "@/contexts/recipe/search-provider";
 import SearchProvider from "@/contexts/recipe/search-service-provider";
 import { HttpClientAxios, HttpClientFetch } from "@/adapters/api/http-client";
-import { API_BASE_URL, API_KEY } from "@/constants";
+import { API_AUTH_BASE_URL, API_BASE_URL, API_KEY } from "@/constants";
 import { axiosInstance } from "@/adapters/api/axios";
 import RecipeService from "@/services/recipeService";
 import { useEffect } from "react";
 import AuthButton from "@/features/auth/auth-button";
+import { useAuthReq } from "@/hooks/useAuthReq";
+import { AuthService } from "@/services/authService";
+import { TokenRepositoryTest } from "@/adapters/repository/token-repository";
 
 const navList: NavigationItemType[] = [
   {
@@ -40,13 +43,33 @@ const navList: NavigationItemType[] = [
   // },
 ];
 
-const httpClient = new HttpClientAxios(axiosInstance);
+// recipe
+const httpClient = new HttpClientAxios(axiosInstance, API_BASE_URL);
 // const httpClient = new HttpClientFetch(API_BASE_URL);
 const searchService = new RecipeService(httpClient, API_KEY);
+
+// auth
+const authHttpClient = new HttpClientAxios(axiosInstance, API_AUTH_BASE_URL);
+const tokenSessionStorage = new TokenRepositoryTest(
+  "authToken",
+  window.sessionStorage
+);
+const authService = new AuthService(authHttpClient, tokenSessionStorage);
 
 const SearchLayout = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+
+  const authButtonHandler = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    const { value } = e.currentTarget;
+    if (value === "login") return authService.login();
+    if (value === "logout") return authService.logout();
+
+    console.log(value);
+    // authService.login
+  };
 
   useEffect(() => {
     if (pathname !== "/") return;
@@ -59,12 +82,13 @@ const SearchLayout = () => {
         <div className="container" id="container">
           <Header>
             <RecipeSearchForm />
-            <Navigation>
+            {/* <Navigation>
               {navList.map((nav, idx) => (
                 <Navigation.Item key={idx} {...nav} />
               ))}
-            </Navigation>
-            <AuthButton type="login" />
+            </Navigation> */}
+            <AuthButton type="login" onClick={authButtonHandler} />
+            <AuthButton type="logout" onClick={authButtonHandler} />
           </Header>
           <Outlet />
         </div>

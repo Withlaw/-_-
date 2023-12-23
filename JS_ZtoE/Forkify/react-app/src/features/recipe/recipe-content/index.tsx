@@ -4,7 +4,7 @@ import {
   RecipeDetail,
   RecipeDetailData,
   RecipeDetailDataRes,
-} from "@/features/recipe/model";
+} from "@/features/recipe/recipe.model";
 import RecipeItemDetail from "@/features/recipe/recipe-search/search-item-detail";
 import { useEffect, useState } from "react";
 import {

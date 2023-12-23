@@ -1,9 +1,14 @@
+import React from "react";
 import icons from "@/assets/icons/icons.svg";
-import { useAuthReq } from "@/hooks/useAuthReq";
-const AuthButton = ({ type }: { type: string }) => {
-  useAuthReq();
+
+type AuthButtonProps = {
+  type: string;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+};
+
+const AuthButton = ({ type, onClick }: AuthButtonProps) => {
   return (
-    <button className="btn--small recipe__btn" value={type}>
+    <button className="btn--small recipe__btn" value={type} onClick={onClick}>
       <svg className="recipe__info-icon">
         <use href={`${icons}#icon-user`}></use>
       </svg>

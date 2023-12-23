@@ -12,3 +12,9 @@ export interface TokenStoragy {
   get(): string | null;
   remove(): void;
 }
+
+export interface TokenStoragyTest {
+  save(value: string, expiration: string): void;
+  get(): string | null;
+  remove(): void;
+}

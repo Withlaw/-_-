@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { redirect, useNavigate } from "react-router-dom";
 import icons from "@/assets/icons/icons.svg";
 import Modal from "@/components/modal";
-import { RecipeFormData, inputDataType } from "@/features/recipe/model";
+import { RecipeFormData, inputDataType } from "@/features/recipe/recipe.model";
 import { useSearchContext } from "@/contexts/recipe/search-service-provider";
 
 const AddRecipe = () => {

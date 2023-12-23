@@ -2,7 +2,7 @@ import { API_BASE_URL } from "@/constants";
 import axios from "axios";
 
 const config = {
-  baseURL: API_BASE_URL,
+  // baseURL: API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },

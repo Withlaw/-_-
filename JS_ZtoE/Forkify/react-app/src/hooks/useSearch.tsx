@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Recipe } from "@/features/recipe/model";
+import { Recipe } from "@/features/recipe/recipe.model";
 import { useRecipeContext } from "@/contexts/recipe/search-provider";
 
 const useSearch = () => {

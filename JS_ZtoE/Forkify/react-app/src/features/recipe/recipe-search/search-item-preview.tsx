@@ -1,4 +1,4 @@
-import { Recipe } from "@/features/recipe/model";
+import { Recipe } from "@/features/recipe/recipe.model";
 import { NavLink } from "react-router-dom";
 
 const RecipeItemPreview = ({ recipe }: { recipe: Recipe }) => {

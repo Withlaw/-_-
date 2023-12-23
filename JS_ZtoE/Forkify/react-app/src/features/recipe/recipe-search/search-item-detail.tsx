@@ -1,5 +1,5 @@
 import icons from "@/assets/icons/icons.svg";
-import { RecipeDetail } from "@/features/recipe/model";
+import { RecipeDetail } from "@/features/recipe/recipe.model";
 import Ingredient from "@/features/recipe/recipe-search/ingredient";
 
 const RecipeItemDetail = ({ data }: { data: RecipeDetail }) => {

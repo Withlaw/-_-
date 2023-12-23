@@ -1,4 +1,4 @@
-import { Recipe } from "@/features/recipe/model";
+import { Recipe } from "@/features/recipe/recipe.model";
 import React, { createContext, useCallback, useContext, useState } from "react";
 
 type RecipeContextProps = {

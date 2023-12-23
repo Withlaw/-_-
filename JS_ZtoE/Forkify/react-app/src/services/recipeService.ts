@@ -7,7 +7,7 @@ import {
   Recipe,
   RecipeDetail,
   RecipeDetailData,
-} from "@/features/recipe/model";
+} from "@/features/recipe/recipe.model";
 
 export interface RecipeServiceI {
   search<T>(query: string): Promise<T>;

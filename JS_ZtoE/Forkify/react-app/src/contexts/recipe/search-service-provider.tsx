@@ -1,7 +1,7 @@
 import { axiosInstance } from "@/adapters/api/axios";
 import { HttpClientAxios } from "@/adapters/api/http-client";
 import { API_BASE_URL, API_KEY } from "@/constants";
-import { Recipe } from "@/features/recipe/model";
+import { Recipe } from "@/features/recipe/recipe.model";
 import RecipeService, { RecipeServiceI } from "@/services/recipeService";
 import React, {
   createContext,

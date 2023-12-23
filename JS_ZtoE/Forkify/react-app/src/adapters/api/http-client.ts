@@ -85,6 +85,16 @@ export class HttpClientFetch implements Fetchy {
   //     throw error;
   //   }
   // }
+
+  async delete(endpoint: string): Promise<Response> {
+    try {
+      const res = await this._fetch(endpoint, { method: "DELETE" });
+
+      return await res.json();
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 // use axios
@@ -149,4 +159,15 @@ export class HttpClientAxios implements Fetchy {
   //     throw error;
   //   }
   // }
+
+  async delete(endpoint: string): Promise<Response> {
+    try {
+      const res = await this.fetcher.delete(this.baseURL + endpoint);
+
+      const { data } = res;
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
