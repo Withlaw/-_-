@@ -1,20 +1,19 @@
 import "@/sass/main.scss";
 
-import Header from "@/components/header";
+import Header from "@/ui/header";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import RecipeSearchForm from "@/features/recipe/recipe-search/search-form";
-import Navigation, { NavigationItemType } from "@/components/nav";
-import RecipeProvider from "@/contexts/recipe/search-provider";
-import SearchProvider from "@/contexts/recipe/search-service-provider";
+import RecipeSearchForm from "@/features/recipes/recipe-search/search-form.component";
+import Navigation, { NavigationItemType } from "@/ui/nav";
+
 import { HttpClientAxios, HttpClientFetch } from "@/adapters/api/http-client";
 import { API_AUTH_BASE_URL, API_BASE_URL, API_KEY } from "@/constants";
 import { axiosInstance } from "@/adapters/api/axios";
 import RecipeService from "@/services/recipeService";
 import { useEffect } from "react";
-import AuthButton from "@/features/auth/auth-button";
-import { useAuthReq } from "@/hooks/useAuthReq";
+import AuthButton from "@/features/authentication/auth-button.component";
 import { AuthService } from "@/services/authService";
 import { TokenRepositoryTest } from "@/adapters/repository/token-repository";
+import { RecipeDataProvider, RecipeServiceProvider } from "@/contexts/recipe";
 
 const navList: NavigationItemType[] = [
   {
@@ -66,9 +65,6 @@ const SearchLayout = () => {
     const { value } = e.currentTarget;
     if (value === "login") return authService.login();
     if (value === "logout") return authService.logout();
-
-    console.log(value);
-    // authService.login
   };
 
   useEffect(() => {
@@ -77,8 +73,8 @@ const SearchLayout = () => {
   }, []);
 
   return (
-    <SearchProvider searchService={searchService}>
-      <RecipeProvider>
+    <RecipeServiceProvider searchService={searchService}>
+      <RecipeDataProvider>
         <div className="container" id="container">
           <Header>
             <RecipeSearchForm />
@@ -92,8 +88,8 @@ const SearchLayout = () => {
           </Header>
           <Outlet />
         </div>
-      </RecipeProvider>
-    </SearchProvider>
+      </RecipeDataProvider>
+    </RecipeServiceProvider>
   );
 };
 

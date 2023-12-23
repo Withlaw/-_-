@@ -1,4 +1,4 @@
-import { Recipe } from "@/features/recipe/recipe.model";
+import { Recipe } from "@/features/recipes/recipe.model";
 import React, { createContext, useCallback, useContext, useState } from "react";
 
 type RecipeContextProps = {
@@ -8,14 +8,14 @@ type RecipeContextProps = {
 
 const RecipeContext = createContext<RecipeContextProps | null>(null);
 
-export const useRecipeContext = () => {
+export const useRecipeData = () => {
   const value = useContext(RecipeContext);
   if (!value)
     throw new Error("useRecipeContext should be used within RecipeProvider");
   return value;
 };
 
-const RecipeProvider = ({ children }: { children: React.ReactNode }) => {
+const RecipeDataProvider = ({ children }: { children: React.ReactNode }) => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
 
   const updateRecipes = useCallback((data: Recipe[]) => {
@@ -28,4 +28,4 @@ const RecipeProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default RecipeProvider;
+export default RecipeDataProvider;

@@ -14,7 +14,7 @@ export interface TokenStoragy {
 }
 
 export interface TokenStoragyTest {
-  save(value: string, expiration: string): void;
+  save(value: string, expiration: string): void; // expiration 을 옵셔널로. 아예 옵션 객체로 받아도 좋고.
   get(): string | null;
   remove(): void;
 }

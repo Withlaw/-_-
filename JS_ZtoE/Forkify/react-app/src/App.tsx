@@ -5,12 +5,12 @@ import {
   createBrowserRouter,
 } from "react-router-dom";
 
-import RecipePage from "@/pages/recipe-page";
-import SearchLayout from "@/components/layout";
+import RecipePage from "@/pages/recipe";
+import SearchLayout from "@/pages/root-layout";
 import RecipeContent, {
   loader as recipeDetailLoader,
-} from "@/features/recipe/recipe-content";
-import AddRecipe from "@/features/recipe/recipe-add";
+} from "@/features/recipes/recipe-detail/recipe-detail.component";
+import AddRecipe from "@/features/recipes/recipe-add/recipe-add.component";
 import { loader as rootLayoutLoader } from "@/pages/home";
 import PaperPage from "@/pages/paper";
 

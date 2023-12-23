@@ -2,8 +2,8 @@ import logo from "@/assets/images/logo.png";
 import icons from "@/assets/icons/icons.svg";
 import React, { useEffect } from "react";
 import { API_KEY, API_BASE_URL } from "@/constants";
-import Navigation, { NavigationItemType } from "@/components/nav";
-import RecipeSearch from "@/features/recipe/recipe-search/search-form";
+import Navigation, { NavigationItemType } from "@/ui/nav";
+import RecipeSearch from "@/features/recipes/recipe-search/search-form.component";
 
 export type HeaderProps = { children?: React.ReactNode };
 

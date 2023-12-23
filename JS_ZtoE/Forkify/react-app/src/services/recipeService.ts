@@ -1,15 +1,6 @@
-// 도메인 로직
-// 데이터 변환 등
-
-import { HttpClientAxios } from "@/adapters/api/http-client";
 import Fetchy from "@/adapters/api/interface";
-import {
-  Recipe,
-  RecipeDetail,
-  RecipeDetailData,
-} from "@/features/recipe/recipe.model";
 
-export interface RecipeServiceI {
+export interface RecipeServiceInterface {
   search<T>(query: string): Promise<T>;
   download<T>(id: string): Promise<T>;
   upload<T = any>(payload?: BodyInit | null): Promise<T | any>;
@@ -17,7 +8,7 @@ export interface RecipeServiceI {
 }
 
 // SearchSerive -> RecipeService
-export default class RecipeService implements RecipeServiceI {
+export default class RecipeService {
   private readonly httpClient: Fetchy;
   private readonly apiKey?: string;
 

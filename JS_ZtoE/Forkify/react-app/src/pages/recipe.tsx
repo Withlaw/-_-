@@ -1,5 +1,6 @@
-import LoadingSpinner from "@/components/loading-spinner";
-import RecipeSearchResult from "@/features/recipe/recipe-search/search-result";
+import { RecipeSearchResult } from "@/features/recipes";
+import LoadingSpinner from "@/ui/loading-spinner";
+
 import { Outlet, useLoaderData, useNavigation } from "react-router-dom";
 
 const RecipePage = () => {

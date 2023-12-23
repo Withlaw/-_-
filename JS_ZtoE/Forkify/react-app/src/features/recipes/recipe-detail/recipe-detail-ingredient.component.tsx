@@ -1,5 +1,5 @@
 import icons from "@/assets/icons/icons.svg";
-import { IngredientType } from "@/features/recipe/recipe.model";
+import { IngredientType } from "@/features/recipes/recipe.model";
 import Fraction from "fraction.js";
 
 const Ingredient = ({ data }: { data: IngredientType }) => {

@@ -1,6 +1,6 @@
 import icons from "@/assets/icons/icons.svg";
-import { RecipeDetail } from "@/features/recipe/recipe.model";
-import Ingredient from "@/features/recipe/recipe-search/ingredient";
+import { RecipeDetail } from "@/features/recipes/recipe.model";
+import Ingredient from "@/features/recipes/recipe-detail/recipe-detail-ingredient.component";
 
 const RecipeItemDetail = ({ data }: { data: RecipeDetail }) => {
   return (

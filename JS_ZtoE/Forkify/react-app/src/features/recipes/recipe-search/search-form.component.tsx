@@ -1,18 +1,17 @@
 import { useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import icons from "@/assets/icons/icons.svg";
-import { useRecipeContext } from "@/contexts/recipe/search-provider";
-import { useSearchContext } from "@/contexts/recipe/search-service-provider";
 import {
   Recipe,
   RecipeDataPreview,
   RecipeDataPreviewRes,
-} from "@/features/recipe/recipe.model";
+} from "@/features/recipes/recipe.model";
+import { useRecipeData, useRecipeService } from "@/contexts/recipe";
 
 const RecipeSearchForm = () => {
   const searchElementRefTarget = useRef<HTMLInputElement | null>(null);
-  const { updateRecipes } = useRecipeContext();
-  const { search, loading } = useSearchContext();
+  const { updateRecipes } = useRecipeData();
+  const { search, loading } = useRecipeService();
 
   const handleSearchSubmit = async (
     event: React.FormEvent<HTMLFormElement>

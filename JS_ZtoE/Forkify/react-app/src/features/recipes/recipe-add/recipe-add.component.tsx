@@ -1,13 +1,13 @@
 import { useRef } from "react";
 import { redirect, useNavigate } from "react-router-dom";
 import icons from "@/assets/icons/icons.svg";
-import Modal from "@/components/modal";
-import { RecipeFormData, inputDataType } from "@/features/recipe/recipe.model";
-import { useSearchContext } from "@/contexts/recipe/search-service-provider";
+import Modal from "@/ui/modal";
+import { RecipeFormData, inputDataType } from "@/features/recipes/recipe.model";
+import { useRecipeService } from "@/contexts/recipe/recipe-service-provider.context";
 
 const AddRecipe = () => {
   const navigate = useNavigate();
-  const { upload } = useSearchContext();
+  const { upload } = useRecipeService();
 
   const modalCloseHandler = () => {
     navigate("..", { relative: "path" });

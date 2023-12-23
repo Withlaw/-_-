@@ -1,20 +1,20 @@
-import Message from "@/components/message";
-import { useSearchContext } from "@/contexts/recipe/search-service-provider";
+import Message from "@/ui/message";
 import {
   RecipeDetail,
   RecipeDetailData,
   RecipeDetailDataRes,
-} from "@/features/recipe/recipe.model";
-import RecipeItemDetail from "@/features/recipe/recipe-search/search-item-detail";
+} from "@/features/recipes/recipe.model";
+import RecipeItemDetail from "@/features/recipes/recipe-detail/recipe-detail-item.component";
 import { useEffect, useState } from "react";
 import {
   LoaderFunction,
   LoaderFunctionArgs,
   useParams,
 } from "react-router-dom";
+import { useRecipeService } from "@/contexts/recipe/recipe-service-provider.context";
 
 const RecipeContent = () => {
-  const { download } = useSearchContext();
+  const { download } = useRecipeService();
   const { recipeId } = useParams();
   const [data, setData] = useState<RecipeDetail | null>(null);
 
