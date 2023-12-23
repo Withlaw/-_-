@@ -22,6 +22,21 @@ const navList: NavigationItemType[] = [
     name: "Bookmarks",
     iconHref: "icon-bookmark",
   },
+  // {
+  //   name: "go paper",
+  //   iconHref: "",
+  //   route: "paper",
+  // },
+  // {
+  //   name: "go paper/a",
+  //   iconHref: "",
+  //   route: "paper/a",
+  // },
+  // {
+  //   name: "go paper/a/1",
+  //   iconHref: "",
+  //   route: "paper/a/1",
+  // },
 ];
 
 const httpClient = new HttpClientAxios(axiosInstance);

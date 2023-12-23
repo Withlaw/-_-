@@ -66,12 +66,12 @@ const Default = () => {
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { recipeId } = params;
-  console.log("loader running recipeId: ", recipeId);
+  console.log("recipe detail loader start: ", recipeId);
 
   const b = await new Promise(resolve => {
     setTimeout(() => {
       resolve("loader");
-      console.log("loader done.");
+      console.log("recipe detail loade done.");
     }, 1000);
   });
   return null;

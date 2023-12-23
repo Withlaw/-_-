@@ -2,12 +2,17 @@ import LoadingSpinner from "@/components/loading-spinner";
 import { useRecipeContext } from "@/contexts/recipe/search-provider";
 import { useSearchContext } from "@/contexts/recipe/search-service-provider";
 import RecipeItemPreview from "@/features/recipe/recipe-search/search-item-preview";
+import { useRouteLoaderData } from "react-router-dom";
 
 const RecipeSearchResult = () => {
   const { recipes } = useRecipeContext();
   const { isLoading } = useSearchContext();
 
   const noItem = !recipes.length;
+
+  // root loader
+  const data = useRouteLoaderData("root");
+  console.log("root loader data: ", data);
 
   return (
     <div className="search-results">
