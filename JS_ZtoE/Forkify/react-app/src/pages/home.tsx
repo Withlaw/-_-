@@ -7,12 +7,9 @@ const HomePage = () => {
 export default HomePage;
 
 export const loader = () => {
-  console.log("'root' route loader start");
+  console.log("'root' route loader run");
 
   const tokenLocalRepository = new TokenLocalRepositoryST();
   const token = tokenLocalRepository.get();
-  if (token) return token;
-
-  console.log("'root' route loader done");
-  return null;
+  return token;
 };

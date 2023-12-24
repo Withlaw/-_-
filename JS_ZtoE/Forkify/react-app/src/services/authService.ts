@@ -4,6 +4,7 @@ import Storagy, {
   TokenStoragyTest,
 } from "@/adapters/repository/interface";
 import { TokenLocalRepositoryST } from "@/adapters/repository/token-repository";
+import { TOKEN_STATE } from "@/constants";
 /*
 interface AuthServiceInterface {
 signin(email, password):void
@@ -17,8 +18,6 @@ interface AuthResData {
 }
 
 export class AuthService {
-  private readonly limit = 1;
-
   constructor(
     private httpClient: Fetchy,
     private tokenRepository: TokenLocalRepositoryST
@@ -29,26 +28,35 @@ export class AuthService {
     // 토큰 만료기간을 보내면, 자동으로 id 생성하고 반환해줄거임
     // 그걸 토큰으로 사용
     try {
+      const expiration = this.tokenRepository.getExpiration({
+        unit: "min",
+        limit: 1,
+      });
+
       const res = await this.httpClient.post<AuthResData>(
         "/auth.json",
-        this.expiration
+        expiration
       );
+
+      // 여러 오류 처리
+
       const { name } = res;
 
-      this.tokenRepository.save(name, this.expiration);
+      this.tokenRepository.set(name, expiration);
     } catch (error) {
       throw error;
     }
   }
+
   async logout() {
     try {
       const token = this.tokenRepository.get();
-      // if (!token) return;
+
+      if (token === TOKEN_STATE.NOT_EXIST) return;
 
       const res = await this.httpClient.delete(`/auth/${token}.json`);
 
       // if (!res.ok) throw "auth logout error!";
-
       this.tokenRepository.remove();
     } catch (error) {
       throw error;
@@ -57,12 +65,5 @@ export class AuthService {
 
   get tokenDuration() {
     return this.tokenRepository.duration;
-  }
-
-  private get expiration() {
-    const expirationDate = new Date();
-    expirationDate.setMinutes(expirationDate.getMinutes() + this.limit);
-
-    return expirationDate.toISOString();
   }
 }

@@ -12,6 +12,7 @@ import RecipeService from "@/services/recipeService";
 import { useEffect } from "react";
 import { RecipeDataProvider, RecipeServiceProvider } from "@/contexts/recipe";
 import { Auth } from "@/features/authentication";
+import { Link } from "react-router-dom";
 
 const navList: NavigationItemType[] = [
   {
@@ -50,8 +51,7 @@ const SearchLayout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (pathname !== "/") return;
-    navigate("recipe");
+    if (pathname === "/") navigate("/recipe");
   }, []);
 
   return (

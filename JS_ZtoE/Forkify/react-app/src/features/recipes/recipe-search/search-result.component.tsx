@@ -13,7 +13,7 @@ const RecipeSearchResult = () => {
 
   // root loader
   const data = useRouteLoaderData("root");
-  console.log("root loader data: ", data);
+  // console.log("root loader data: ", data);
 
   return (
     <div className="search-results">
