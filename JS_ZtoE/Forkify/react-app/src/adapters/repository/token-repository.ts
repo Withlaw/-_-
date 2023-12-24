@@ -79,3 +79,55 @@ export class TokenRepositoryTest implements TokenStoragyTest {
     return duration;
   }
 }
+
+// token repo Singleton class
+export class TokenLocalRepositoryST implements TokenStoragyTest {
+  private readonly key = "authToken";
+  private readonly storage = window.localStorage;
+  private static instance: TokenLocalRepositoryST;
+  private static description = "Singleton Pattern";
+
+  constructor() {
+    if (!TokenLocalRepositoryST.instance)
+      TokenLocalRepositoryST.instance = this;
+
+    return TokenLocalRepositoryST.instance;
+  }
+
+  save(value: string, expiration: string) {
+    this.storage.setItem(this.key, value);
+    this.storage.setItem("expiration", expiration);
+  }
+
+  get() {
+    if (!this.duration) return null;
+    // 토큰이 없거나, 기한이 만료되었으면 null 반환
+
+    const token = this.storage.getItem(this.key);
+    return token;
+  }
+
+  remove() {
+    this.storage.removeItem(this.key);
+    this.storage.removeItem("expiration");
+  }
+
+  get duration() {
+    const now = new Date();
+    const expirationDate = this.storage.getItem("expiration");
+    if (!expirationDate) return null; // 토큰이 없음
+
+    const date = new Date(expirationDate);
+    const duration = date.getTime() - now.getTime();
+    console.log("dreuation eee: ", duration);
+    if (duration <= 0) return null; // 기한이 만료됨
+
+    return duration;
+  }
+
+  static getInstance() {
+    if (!this.instance) this.instance = new TokenLocalRepositoryST();
+
+    return this.instance;
+  }
+}

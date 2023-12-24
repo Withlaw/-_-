@@ -3,6 +3,7 @@ import Storagy, {
   TokenStoragy,
   TokenStoragyTest,
 } from "@/adapters/repository/interface";
+import { TokenLocalRepositoryST } from "@/adapters/repository/token-repository";
 /*
 interface AuthServiceInterface {
 signin(email, password):void
@@ -20,7 +21,7 @@ export class AuthService {
 
   constructor(
     private httpClient: Fetchy,
-    private tokenRepository: TokenStoragyTest
+    private tokenRepository: TokenLocalRepositoryST
   ) {}
 
   async login() {
@@ -42,7 +43,7 @@ export class AuthService {
   async logout() {
     try {
       const token = this.tokenRepository.get();
-      if (!token) return;
+      // if (!token) return;
 
       const res = await this.httpClient.delete(`/auth/${token}.json`);
 
@@ -52,6 +53,10 @@ export class AuthService {
     } catch (error) {
       throw error;
     }
+  }
+
+  get tokenDuration() {
+    return this.tokenRepository.duration;
   }
 
   private get expiration() {
