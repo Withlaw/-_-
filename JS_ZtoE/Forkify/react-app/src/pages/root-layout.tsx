@@ -27,7 +27,7 @@ const navList: NavigationItemType[] = [
   // {
   //   name: "go paper",
   //   iconHref: "",
-  //   route: "paper",
+  //   route: "/paper",
   // },
   // {
   //   name: "go paper/a",

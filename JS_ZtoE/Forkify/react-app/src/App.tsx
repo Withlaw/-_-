@@ -37,23 +37,25 @@ const routes: RouteObject[] = [
           { path: "new", element: <AddRecipe /> },
         ],
       },
-      {
-        path: "paper",
-        element: <PaperPage />,
-        children: [
-          {
-            path: "a",
-            element: <PaperPage />,
-            children: [{ path: "1", element: <PaperPage /> }],
-          },
-        ],
-      },
+      // {
+      //   path: "paper",
+      //   element: <PaperPage />,
+      //   children: [
+      //     {
+      //       path: "a",
+      //       element: <PaperPage />,
+      //       children: [{ path: "1", element: <PaperPage /> }],
+      //     },
+      //   ],
+      // },
     ],
   },
 ];
 
 const router = createBrowserRouter(
   routes.map(route => {
+    // 모든 라우트를 순회하려면 깊은 탐색 하거나
+    // 라우트를 flat하게 작성해야함. -> 레이아웃 상속이 안됨.
     return route;
   })
 );
