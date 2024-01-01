@@ -54,6 +54,7 @@
 -fieldset-legend: 필드셋 요소는 폼 내부에서 하위 폼처럼 사용된다. 같은 목적을 가진 위젯들을 그룹화한다. \*라디오 버튼 세트는 반드시 필드셋으로 래핑한다.\
 -input(textaria)-label [인풋타입](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types)\
 -select(multiple)-option\
+-*figure-img \
 
 - `FormData 인터페이스`: form 필드와 그 값을 나타내는 key:value 쌍을 쉽게 생성할 수 있는 방법을 제공한다.
 
