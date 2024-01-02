@@ -64,9 +64,9 @@
 
 -dialog: 모달 혹은 비모달 대화상자를 생성할 때 사용하는 요소 태그이다. [참고1](https://ui.toast.com/posts/ko_20220518), [참고2](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)\
 -모달(showModal())과 비모달(show())의 차이: 비활성화된 부분의 상호작용 가능 여부\
--form과 함께 사용시 submit 이벤트 발생 후 자동으로 모달창이 닫힌다. `<form method='dialog'>`, `<button formmethod='dialog>`\
+-form과 함께 사용시 submit 이벤트 발생 후 자동으로 모달창이 닫힌다. `<form method='dialog'>` or `<button formmethod='dialog>`\
 -키보드 esc 누르면 모달창이 닫힌다.\
--오버레이 스타일: `::backdrop` 모달의 비활성 컨텐츠에 접근 불가한 영역에 스타일을 적용할 수 있다.\
+-오버레이 스타일: `::backdrop` 모달의 비활성 컨텐츠에 접근 불가한 영역에 스타일을 적용할 수 있다.
 
 ### `인증/인가`
 
